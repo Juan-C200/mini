@@ -55,31 +55,36 @@ public class PagoDao {
        }
    }
     
-    public int buscarDescuento(int idOferta){
-        String sql = "SELECT o.descuento, fechaInicio, fechaFin FROM ofertas_especiales o JOIN habitaciones h ON o.idOfertaEspecial = h.idOfertaEspecial WHERE h.idOfertaEspecial="+idOferta;
-        
-         try{
-           con=conectar.getConnection();
-           ps=con.prepareStatement(sql);
-           
-           
-           
-           ps.executeUpdate();
-           return 1;
-              
-       } catch (SQLException e) {
-           JOptionPane.showMessageDialog(null, e.toString(),"Error de insercion"+e.getMessage(),JOptionPane.ERROR_MESSAGE);
-           return 0;
-       } finally {
-           try{
-               if(con!=null){
-                   con.close();
-               }
-           } catch (SQLException sqle){
-               JOptionPane.showMessageDialog(null, sqle.toString());
-            }
-          }
+    public Oferta buscarOferta(int id) {
+        try {
+            String sql = "SELECT * FROM ofertas_especiales WHERE idOfertaEspecial=" + id;
+            con = conectar.getConnection();
+            ps = con.prepareStatement(sql);
 
-      }
+            Oferta o = new Oferta();
+
+            if (rs.next()) {
+                o.setIdOfertaEspecial(rs.getInt(1));
+                o.setDescuento(rs.getInt(2));
+                o.setFechaInicio(rs.getDate(3));
+                o.setFechaFin(rs.getDate(4));
+            }
+
+            ps.executeUpdate();
+            return o;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString(), "Error de insercion" + e.getMessage(), JOptionPane.ERROR_MESSAGE);
+            return null;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException sqle) {
+                JOptionPane.showMessageDialog(null, sqle.toString());
+            }
+        }
+    }
     }
 
