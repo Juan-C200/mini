@@ -247,11 +247,11 @@ public class ReservaDao {
            
 
            ps.setInt(1, r.getIdReserva());
-           ps.setDate(1, (Date) r.getFechaInicio());
-           ps.setDate(2, (Date) r.getFechaFin());
-           ps.setString(3,r.getEstado());
-           ps.setInt(4, r.getUsuario().getIdUsuario());
-           ps.setInt(5, r.getHabitacion().getIdHabitacion());
+           ps.setDate(2, new java.sql.Date(r.getFechaInicio().getTime()));
+           ps.setDate(3, new java.sql.Date(r.getFechaFin().getTime()));
+           ps.setString(4,r.getEstado());
+           ps.setInt(5, r.getUsuario().getIdUsuario());
+           ps.setInt(6, r.getHabitacion().getIdHabitacion());
 
            
            ps.executeUpdate();

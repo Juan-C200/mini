@@ -7,14 +7,19 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import modelo.Habitacion;
 import modelo.HabitacionDao;
 import modelo.Hotel;
 import modelo.HotelDao;
+import modelo.Oferta;
+import modelo.OfertaDao;
 import modelo.Usuario;
 import vista.RegistrarOfertaV;
+import vista.UsuarioV;
 
 /**
  *
@@ -25,9 +30,12 @@ public class RegistrarOfertaC implements ActionListener{
     Usuario usuario = new Usuario();
     HabitacionDao habitacionDao = new HabitacionDao();
     HotelDao hotelDao = new HotelDao();
+    Oferta oferta = new Oferta();
+    OfertaDao ofertaDao = new OfertaDao();
     List<Habitacion> habitaciones = new ArrayList<>();
     int idHotel;
     String[] listaH;
+    
     String temp;
     public RegistrarOfertaC(RegistrarOfertaV registrarOfertaV, Usuario usuario) {
         this.usuario = usuario;
@@ -65,5 +73,78 @@ public class RegistrarOfertaC implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        if (e.getSource() == registrarOfertaV.bcancelar) {
+            UsuarioV usuarioV = new UsuarioV();
+            UsuarioC usuarioC = new UsuarioC(usuarioV, usuario);
+            registrarOfertaV.setVisible(false);
+        }
+        
+        if (e.getSource() == registrarOfertaV.bagregar) {
+
+            if (!registrarOfertaV.tdescuento.getText().isBlank()
+                && !registrarOfertaV.fechaInicio.getDate().toString().isBlank()
+                && !registrarOfertaV.fechaFin.getDate().toString().isBlank()
+
+                ) {
+
+                setAdd();
+                
+                UsuarioV usuarioV = new UsuarioV();
+                UsuarioC usuarioC = new UsuarioC(usuarioV, usuario);
+                registrarOfertaV.setVisible(false);
+
+                JOptionPane.showMessageDialog(registrarOfertaV, "Es bien");
+                
+                
+            } else {
+
+                JOptionPane.showMessageDialog(registrarOfertaV, "Faltan datos por ingresar");
+
+            }
+        }
+    }
+    
+    public void setAdd() {
+        int resultado = 0;
+        int r = 1;
+        double descuento=0;
+        Date fechaInicio = registrarOfertaV.fechaInicio.getDate();
+        Date fechaFin = registrarOfertaV.fechaFin.getDate();
+        int idHabitacion = registrarOfertaV.lista.getSelectedIndex();
+        
+        
+        
+        try {
+
+            descuento = Double.parseDouble(registrarOfertaV.tdescuento.getText());
+
+        } catch (NumberFormatException eN) {
+            r = 0;
+            JOptionPane.showMessageDialog(registrarOfertaV, "Error en los datos numéricos: " + eN.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+        int idOferta = ofertaDao.ultimoId()+1;
+        
+        oferta.setIdOfertaEspecial(idOferta);
+        oferta.setDescuento(descuento);
+        oferta.setFechaInicio(fechaInicio);
+        oferta.setFechaFin(fechaFin);
+        
+
+
+        
+        
+        if (ofertaDao.setAgregar(oferta)==1) {
+            JOptionPane.showMessageDialog(registrarOfertaV, "Se inserto la oferta");
+            habitacionDao.setActualizarOferta(idHabitacion, idOferta);
+
+        } else {
+            JOptionPane.showMessageDialog(registrarOfertaV, "no se inserto la oferta");
+        }
+        
+        
+
     }
 }

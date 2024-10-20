@@ -12,11 +12,11 @@ import java.util.Date;
  */
 public class Oferta {
     public int idOfertaEspecial;
-    public int descuento;
+    public double descuento;
     public Date fechaInicio;
     public Date fechaFin;
 
-    public Oferta(int idOfertaEspecial, int descuento, Date fechaInicio, Date fechaFin) {
+    public Oferta(int idOfertaEspecial, double descuento, Date fechaInicio, Date fechaFin) {
         this.idOfertaEspecial = idOfertaEspecial;
         this.descuento = descuento;
         this.fechaInicio = fechaInicio;
@@ -35,11 +35,11 @@ public class Oferta {
         this.idOfertaEspecial = idOfertaEspecial;
     }
 
-    public int getDescuento() {
+    public double getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(int descuento) {
+    public void setDescuento(double descuento) {
         this.descuento = descuento;
     }
 

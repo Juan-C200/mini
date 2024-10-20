@@ -15,6 +15,7 @@ import modelo.Usuario;
 import vista.AlojamientosV;
 import vista.EditarUsuarioV;
 import vista.RegistrarHotelV;
+import vista.RegistrarOfertaV;
 import vista.UsuarioV;
 import vista.VerAlojamientosV;
 import vista.VerReservasV;
@@ -52,6 +53,30 @@ public class UsuarioC implements ActionListener{
             this.usuariov.gbc.anchor = GridBagConstraints.WEST;
             this.usuariov.panel.add(this.usuariov.bverAlojamientos, this.usuariov.gbc);
             this.usuariov.bverAlojamientos.addActionListener(this);
+            
+            
+            
+            this.usuariov.lagregarOferta = new JLabel("Agregar oferta especial");
+            this.usuariov.lagregarOferta.setFont(new Font("Times New Roman", 0, 30));
+
+            this.usuariov.gbc.gridy = 9;
+            this.usuariov.gbc.gridwidth = 1;
+            this.usuariov.gbc.anchor = GridBagConstraints.WEST;
+            this.usuariov.panel.add(this.usuariov.lagregarOferta, this.usuariov.gbc);
+
+            this.usuariov.bagregar = new JButton("Agregar");
+            this.usuariov.bagregar.setFont(new Font("Times New Roman", 0, 20));
+            this.usuariov.bagregar.setContentAreaFilled(false);
+
+            this.usuariov.gbc.gridy = 10;
+            this.usuariov.gbc.gridwidth = 2;
+            this.usuariov.gbc.anchor = GridBagConstraints.WEST;
+            this.usuariov.panel.add(this.usuariov.bagregar, this.usuariov.gbc);
+            
+            this.usuariov.bverAlojamientos.addActionListener(this);
+            this.usuariov.bagregar.addActionListener(this);
+            
+            
         }
         
 
@@ -69,6 +94,11 @@ public class UsuarioC implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource()==usuariov.bagregar){
+            RegistrarOfertaV registrarOfertaV = new RegistrarOfertaV();
+            RegistrarOfertaC registrarOfertaC = new RegistrarOfertaC(registrarOfertaV,usuario);
+        }
         
         if(e.getSource()==usuariov.bverAlojamientos){
             

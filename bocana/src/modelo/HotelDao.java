@@ -46,17 +46,17 @@ public class HotelDao {
 
                 
                 
-                u.setIdUsuario(rs.getInt(7));
-                u.setDocumento(rs.getInt(8));
-                u.setNombre1(rs.getString(9));
-                u.setNombre2(rs.getString(10));
-                u.setApellido1(rs.getString(11));
-                u.setApellido2(rs.getString(12));
-                u.setCorreo(rs.getString(13));
-                u.setTelefono(rs.getString(14));
-                u.setDireccion(rs.getString(15));
-                u.setContrasena(rs.getString(16));
-                u.setIdRol(rs.getInt(17));
+                u.setIdUsuario(rs.getInt(6));
+                u.setDocumento(rs.getInt(7));
+                u.setNombre1(rs.getString(8));
+                u.setNombre2(rs.getString(9));
+                u.setApellido1(rs.getString(10));
+                u.setApellido2(rs.getString(11));
+                u.setCorreo(rs.getString(12));
+                u.setTelefono(rs.getString(13));
+                u.setDireccion(rs.getString(14));
+                u.setContrasena(rs.getString(15));
+                u.setIdRol(rs.getInt(16));
                 
                 h.setUsuario(u);
                 
@@ -120,7 +120,7 @@ public class HotelDao {
             ps.setString(3, h.getNombreHotel());
             ps.setString(4, h.getDireccion());
             ps.setInt(5, h.getNumeroHabitaciones());
-            ps.setInt(7, h.getUsuario().getIdUsuario());
+            ps.setInt(6, h.getUsuario().getIdUsuario());
            
            ps.executeUpdate();
            return 1;

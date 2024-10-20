@@ -36,7 +36,7 @@ public class HabitacionDao {
                 + " FROM habitaciones h "
                 + "JOIN tipos_habitaciones tp ON tp.idTipoHabitacion = h.idTipoHabitacion "
                 + "JOIN hoteles ho ON ho.idHotel = h.idHotel "
-                + "JOIN ofertas_especiales oe ON oe.idOfertaEspecial = h.idOfertaEspecial";
+                + "LEFT JOIN ofertas_especiales oe ON oe.idOfertaEspecial = h.idOfertaEspecial";
         try {
             con = conectar.getConnection();
             ps = con.prepareStatement(sql);
@@ -122,7 +122,7 @@ public class HabitacionDao {
                 + " FROM habitaciones h "
                 + "JOIN tipos_habitaciones tp ON tp.idTipoHabitacion = h.idTipoHabitacion "
                 + "JOIN hoteles ho ON ho.idHotel = h.idHotel "
-                + "JOIN ofertas_especiales oe ON oe.idOfertaEspecial = h.idOfertaEspecial WHERE h.idHotel = "+idHotel;
+                + "LEFT JOIN ofertas_especiales oe ON oe.idOfertaEspecial = h.idOfertaEspecial WHERE h.idHotel = "+idHotel;
         try {
             con = conectar.getConnection();
             ps = con.prepareStatement(sql);
