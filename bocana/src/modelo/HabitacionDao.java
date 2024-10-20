@@ -32,10 +32,11 @@ public class HabitacionDao {
     public List listar() {
         ArrayList<Habitacion> datosHabitaciones = new ArrayList<Habitacion>();
         String sql = "SELECT h.idHabitacion, h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion , h.idHotel,"
-                + " ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones"
+                + " ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones, h.idOfertaEspecial, oe.descuento, oe.fechaInicio, oe.fechaFin"
                 + " FROM habitaciones h "
                 + "JOIN tipos_habitaciones tp ON tp.idTipoHabitacion = h.idTipoHabitacion "
-                + "JOIN hoteles ho ON ho.idHotel = h.idHotel";
+                + "JOIN hoteles ho ON ho.idHotel = h.idHotel "
+                + "JOIN ofertas_especiales oe ON oe.idOfertaEspecial = h.idOfertaEspecial";
         try {
             con = conectar.getConnection();
             ps = con.prepareStatement(sql);
@@ -62,7 +63,15 @@ public class HabitacionDao {
                 ho.setNombreHotel(rs.getString(11));
                 ho.setDireccion(rs.getString(12));
                 ho.setNumeroHabitaciones(rs.getInt(13));
-
+                
+                Oferta o = new Oferta();
+                
+                o.setIdOfertaEspecial(rs.getInt(14));
+                o.setDescuento(rs.getInt(15));
+                o.setFechaInicio(rs.getDate(16));
+                o.setFechaFin(rs.getDate(17));
+                
+                h.setOferta(o);
                 
                 ArrayList<TipoServicio> servicios = new ArrayList<TipoServicio>();
                 
@@ -109,10 +118,11 @@ public class HabitacionDao {
     public List listarPorHotel(int idHotel) {
         ArrayList<Habitacion> datosHabitaciones = new ArrayList<Habitacion>();
         String sql = "SELECT h.idHabitacion, h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion , h.idHotel,"
-                + " ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones, h.idOfertaEspecial"
+                + " ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones, h.idOfertaEspecial, oe.descuento, oe.fechaInicio, oe.fechaFin"
                 + " FROM habitaciones h "
                 + "JOIN tipos_habitaciones tp ON tp.idTipoHabitacion = h.idTipoHabitacion "
-                + "JOIN hoteles ho ON ho.idHotel = h.idHotel WHERE h.idHotel = "+idHotel;
+                + "JOIN hoteles ho ON ho.idHotel = h.idHotel "
+                + "JOIN ofertas_especiales oe ON oe.idOfertaEspecial = h.idOfertaEspecial WHERE h.idHotel = "+idHotel;
         try {
             con = conectar.getConnection();
             ps = con.prepareStatement(sql);
@@ -140,7 +150,14 @@ public class HabitacionDao {
                 ho.setDireccion(rs.getString(12));
                 ho.setNumeroHabitaciones(rs.getInt(13));
                 
-
+                Oferta o = new Oferta();
+                
+                o.setIdOfertaEspecial(rs.getInt(14));
+                o.setDescuento(rs.getInt(15));
+                o.setFechaInicio(rs.getDate(16));
+                o.setFechaFin(rs.getDate(17));
+                
+                h.setOferta(o);
                 
                 ArrayList<TipoServicio> servicios = new ArrayList<TipoServicio>();
                 
@@ -224,7 +241,7 @@ public class HabitacionDao {
     }
     
     public int setAgregar (Habitacion h){
-       String sql = "INSERT INTO habitaciones VALUES (? ,?, ?, ?, ?, ?, ?, ?)";
+       String sql = "INSERT INTO habitaciones VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?)";
        
        try{
            con=conectar.getConnection();
@@ -238,7 +255,8 @@ public class HabitacionDao {
            ps.setString(5,h.getDescripcionBreve());
            ps.setString(6, h.getDescripcionDetallada());
            ps.setInt(7, h.getTipoHabitacion().getIdTipoHabitacion());
-           ps.setInt(8, h.getHotel().getIdHotel());
+           ps.setInt(8, h.getOferta().getIdOfertaEspecial());
+           ps.setInt(9, h.getHotel().getIdHotel());
            
            
            
@@ -258,6 +276,36 @@ public class HabitacionDao {
            }
        }
    }
+    
+    
+    public int setActualizarOferta(int idHabitacion, int idOferta){
+        String sql="UPDATE habitaciones SET idOfertaEspecial=? WHERE idHabitacion=?";
+        
+        try{
+            con=conectar.getConnection();
+            ps=con.prepareStatement(sql);
+            
+            ps.setInt(1,idOferta);
+            ps.setInt(2,idHabitacion);
+
+            
+            ps.executeUpdate();
+            return 1;
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.toString(),"Error de actualizacion"+e.getMessage(),JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }finally{
+            try{
+                if(con!=null){
+                    con.close();
+                }
+            }catch(SQLException sqle){
+                JOptionPane.showMessageDialog(null, sqle.toString());
+            }
+            
+        }
+    }
+    
     
     public int setAgregarImagenes(int idHabitacion, List<byte[]> imagenes){
         String sql = "INSERT INTO imagenes (idHabitacion, imagen) VALUES (?, ?)";
