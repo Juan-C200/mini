@@ -54,7 +54,7 @@ public class IniciarSesionC implements ActionListener {
             RegistrarC registrarC = new RegistrarC(registrarV);
             iniciarSesionV.setVisible(false);
 
-              
+        }   
 
             if(e.getSource()==iniciarSesionV.bcancelar){
                 usuario.setIdRol(3);
@@ -63,7 +63,7 @@ public class IniciarSesionC implements ActionListener {
                 iniciarSesionV.setVisible(false);
             }
             
-        }
+        
         if(iniciarSesionV.ver.isSelected()){
                 iniciarSesionV.tcontrasena.setEchoChar((char) 0);
             } else {

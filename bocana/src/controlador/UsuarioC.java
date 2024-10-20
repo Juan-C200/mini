@@ -51,10 +51,10 @@ public class UsuarioC implements ActionListener{
             this.usuariov.gbc.gridwidth = 2;
             this.usuariov.gbc.anchor = GridBagConstraints.WEST;
             this.usuariov.panel.add(this.usuariov.bverAlojamientos, this.usuariov.gbc);
-            
+            this.usuariov.bverAlojamientos.addActionListener(this);
         }
         
-        this.usuariov.bverAlojamientos.addActionListener(this);
+
         this.usuariov.beditarPerfil.addActionListener(this);
         this.usuariov.bverReservas.addActionListener(this);
         this.usuariov.bagregarAlojamiento.addActionListener(this);

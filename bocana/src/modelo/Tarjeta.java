@@ -9,6 +9,7 @@ package modelo;
  * @author estud
  */
 public class Tarjeta {
+    int id;
     String numTarjeta;
     String cvv;
     String nombrePropietario;
@@ -20,7 +21,8 @@ public class Tarjeta {
     int idUsuario;
 
 
-    public Tarjeta(String numTarjeta, String cvv, String nombrePropietario, String apellidoPropietario, String fechaVencimiento, String tipoTarjeta, String banco, String tipoDebito, int idUsuario) {
+    public Tarjeta(int id, String numTarjeta, String cvv, String nombrePropietario, String apellidoPropietario, String fechaVencimiento, String tipoTarjeta, String banco, String tipoDebito, int idUsuario) {
+        this.id=id;
         this.numTarjeta = numTarjeta;
         this.cvv = cvv;
         this.nombrePropietario = nombrePropietario;
@@ -49,6 +51,14 @@ public class Tarjeta {
 
     public void setCvv(String cvv) {
         this.cvv = cvv;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

@@ -41,7 +41,7 @@ public class PagoV extends JFrame{
     public GridLayout grid;
     public String tarjetas[];
     public ArrayList <String> lisTarjetas;
-    public JButton continuar, cancelar;
+    public JButton continuar, cancelar, agregarTarjeta;
     public JComboBox listaTarjetas;
     public GridBagConstraints gbc;
     public GridBagLayout gridbag;
@@ -109,9 +109,10 @@ public class PagoV extends JFrame{
         tfecha = new JLabel("Fecha:");
         fecha = new JLabel("");
         
+        agregarTarjeta = new JButton("Agregar Tarjeta");
         
         panelCentro = new JPanel();
-        grid = new GridLayout(3,2,7,7);
+        grid = new GridLayout(4,2,7,7);
         panelCentro.setLayout(grid);
         
         panelCentro.add(tmonto);
@@ -120,6 +121,7 @@ public class PagoV extends JFrame{
         panelCentro.add(fecha);
         panelCentro.add(tiTarjetas);
         panelCentro.add(listaTarjetas);
+        panelCentro.add(agregarTarjeta);
         
         
         

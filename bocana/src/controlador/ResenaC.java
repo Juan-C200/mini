@@ -31,6 +31,7 @@ import modelo.Usuario;
 import vista.AlojamientosV;
 import vista.MetodoDePagoV;
 import vista.ResenaV;
+import vista.ReservaV;
 
 /**
  *
@@ -165,8 +166,8 @@ public class ResenaC implements ActionListener{
         
         if(e.getSource() == resenaV.breservar){
 
-            MetodoDePagoV metodoDePagoV = new MetodoDePagoV();
-            MetodoDePagoC metodoDePagoC = new MetodoDePagoC(metodoDePagoV,usuario,habitacion);
+            ReservaV rv = new ReservaV();
+            ReservaC rc = new ReservaC(rv,usuario,habitacion);
             resenaV.setVisible(false);
         }
         

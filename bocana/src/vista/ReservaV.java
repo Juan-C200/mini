@@ -49,7 +49,7 @@ public class ReservaV extends JFrame {
         panelNorte.setLayout(miflow);
         
         panelCentro = new JPanel();
-        migrid = new GridLayout(6,2,5,5);
+        migrid = new GridLayout(4,2,5,5);
         panelCentro.setLayout(migrid); 
         
         panelSur = new JPanel();
@@ -59,37 +59,44 @@ public class ReservaV extends JFrame {
         titulo = new JLabel("Reserva");
         lusuario = new JLabel("Nombre del titular:");
         lnombre_habitacion = new JLabel("Nombre de habitacion:");
-        lmonto  = new JLabel("Monto:");
-        lmetodoPago  = new JLabel("Metodo de pago:");
         lfechaInicio  = new JLabel("Fecha de inicio:");
         lfechaFin  = new JLabel("Fecha de fin");
-        politicas  = new JLabel("Política de Cancelación de Alojamientos Bocana\n" +
+        politicas  = new JLabel("<html>Política de Cancelación de Alojamientos Bocana" +
 "<br>" +
-"Cancelación Gratuita: Los huéspedes pueden cancelar su reserva sin cargo hasta 48 horas antes de la fecha de llegada.\n" +
+"Cancelación Gratuita: Los huéspedes pueden cancelar su reserva sin cargo "
+                + "<br>hasta 48 horas antes de la fecha de llegada." +
 "<br>" +
-"Cancelación Tardía: Si la cancelación se realiza menos de 48 horas antes de la llegada, se aplicará un cargo equivalente a la primera noche de estancia.\n" +
+"Cancelación Tardía: Si la cancelación se realiza menos de 48 horas antes "
+                + "<br>de la llegada, se aplicará un cargo equivalente a la primera "
+                + "<br>noche de estancia." +
 "<br>" +
-"No Show: En caso de no presentarse sin haber realizado una cancelación previa, se cobrará el total de la reserva.\n" +
+"No Show: En caso de no presentarse sin haber realizado una cancelación "
+                + "<br>previa, se cobrará el total de la reserva." +
 "<br>" +
-"Modificaciones: Las solicitudes de cambio de fecha o tipo de habitación se aceptarán sin costo, siempre que se realicen con al menos 48 horas de anticipación y estén sujetas a disponibilidad.\n" +
+"Modificaciones: Las solicitudes de cambio de fecha o tipo de habitación se "
+                + "<br>aceptarán sin costo, siempre que se realicen con al menos "
+                + "<br>48 horas de anticipación y estén sujetas a disponibilidad." +
 "<br>" +
-"Reservas No Reembolsables: Las tarifas promocionales y las reservas no reembolsables no permiten cancelaciones ni cambios. El pago total se cargará al momento de la reserva.\n" +
+"Reservas No Reembolsables: Las tarifas promocionales y las reservas no "
+                + "<br>reembolsables no permiten cancelaciones ni cambios. El "
+                + "<br>pago total se cargará al momento de la reserva." +
 "<br>" +
-"Reembolsos: En caso de cancelación dentro del plazo permitido, el reembolso se procesará dentro de 7 a 10 días hábiles.");
-        aceptar = new JCheckBox();
+"Reembolsos: En caso de cancelación dentro del plazo permitido, el reembolso "
+                + "<br>se procesará dentro de 7 a 10 días hábiles.</html>");
+       
+        aceptar = new JCheckBox("Estoy de acuerdo");
         
       usuario = new JLabel();
       nombre_habitacion = new JLabel();
-      monto = new JLabel();
-      metodoPago = new JLabel();
-      lfechaInicio = new JLabel();
-      lfechaFin = new JLabel();
+
+      lfechaInicio = new JLabel("Fecha de inicio:");
+      lfechaFin = new JLabel("Fecha fin:");
       
       fechaInicio = new JDateChooser();
       fechaFin = new JDateChooser();
       
-      cancelar = new JButton();
-      continuar = new JButton();
+      cancelar = new JButton("Cancelar");
+      continuar = new JButton("Continuar");
       
       panelDerecha = new JPanel();
       migrid = new GridLayout(2,1);
@@ -115,10 +122,7 @@ gbc = new GridBagConstraints();
             panelCentro.add(usuario);
             panelCentro.add(lnombre_habitacion);
             panelCentro.add(nombre_habitacion);
-            panelCentro.add(lmonto);
-            panelCentro.add(monto);
-            panelCentro.add(lmetodoPago);
-            panelCentro.add(metodoPago);
+
             panelCentro.add(lfechaInicio);
             panelCentro.add(fechaInicio);
             panelCentro.add(lfechaFin);
@@ -126,16 +130,16 @@ gbc = new GridBagConstraints();
             
 
             // Panel sur
-            panelSur.add(cancelar, continuar);
-            
-            gbc.gridy = 0;
+            panelSur.add(cancelar);
+            panelSur.add(continuar);
+  
             panel.add(panelNorte, gbc);
             
-            gbc.gridy = 0;
+            gbc.gridy = 1;
             gbc.insets = new Insets(20, 100, 20, 100);
             panel.add(panelCentro, gbc);
             
-            gbc.gridy = 0;
+            gbc.gridy = 2;
             gbc.insets = new Insets(20, 100, 100, 100);
             panel.add(panelSur, gbc);
             

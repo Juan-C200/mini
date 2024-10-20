@@ -10,6 +10,7 @@ import modelo.Habitacion;
 import modelo.Usuario;
 import vista.AlojamientosV;
 import vista.MetodoDePagoV;
+import vista.PagoV;
 import vista.ResenaV;
 import vista.ReservaV;
 import vista.TarjetaV;
@@ -21,7 +22,7 @@ import vista.TarjetaV;
 public class MetodoDePagoC implements ActionListener {
 
     MetodoDePagoV metodoDePagoV = new MetodoDePagoV();
-    String metodo;
+
     
     Usuario usuario = new Usuario();
     Habitacion habitacion = new Habitacion();
@@ -44,12 +45,12 @@ public class MetodoDePagoC implements ActionListener {
             if (e.getSource() == metodoDePagoV.continuar) {
                 
                     if(metodoDePagoV.lista.getSelectedItem().toString().equals("Tarjeta")){
-                        TarjetaV tarjetaV = new TarjetaV();
-                        TarjetaC tarjetaC = new TarjetaC(tarjetaV,usuario,habitacion);
+                        PagoV pv = new PagoV();
+                        PagoC pc = new PagoC(pv, usuario, habitacion,"Tarjeta");
                         metodoDePagoV.setVisible(false);
                     }else if(metodoDePagoV.lista.getSelectedItem().toString().equals("Efectivo")){
-                        ReservaV reservaV = new ReservaV();
-                        ReservaC reservaC = new ReservaC(reservaV,usuario,habitacion);
+                        PagoV pv = new PagoV();
+                        PagoC pc = new PagoC(pv, usuario, habitacion, "Efectivo");
                         metodoDePagoV.setVisible(false);
                     }
             } 
@@ -58,17 +59,10 @@ public class MetodoDePagoC implements ActionListener {
 
 
         if (e.getSource() == metodoDePagoV.cancelar) {
-                ResenaV resenaV = new ResenaV();
-                ResenaC resenaC = new ResenaC(resenaV, usuario, habitacion);
+                ReservaV rV = new ReservaV();
+                ReservaC resenaC = new ReservaC(rV, usuario, habitacion);
                 metodoDePagoV.setVisible(false);
 
-        if (e.getSource() == metodoDePagoV.cancelar) {
-            
-//                        AlojamientosV aloja = new AlojamientosV();
-//                        AlojamientosC al = new AlojamientosC(aloja);
-
-                        
-        }
     }
 }
 }

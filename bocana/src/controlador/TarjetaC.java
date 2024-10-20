@@ -16,6 +16,7 @@ import modelo.Tarjeta;
 import modelo.TarjetaDao;
 import modelo.Usuario;
 import vista.MetodoDePagoV;
+import vista.PagoV;
 import vista.TarjetaV;
 
 /**
@@ -29,13 +30,14 @@ public class TarjetaC implements ActionListener {
     public TarjetaDao tarDao = new TarjetaDao();
     Usuario usuario = new Usuario();
     Habitacion habitacion = new Habitacion();
-    int id=2, numT;
+    int id = tarDao.ultimoId() + 1;
+
     boolean result;
 
-    public TarjetaC(TarjetaV tarV,Usuario usuario, Habitacion habitacion) {
+    public TarjetaC(TarjetaV tarV, Usuario usuario, Habitacion habitacion) {
         this.tarjetaV = tarV;
-        this.usuario= usuario;
-        this.habitacion= habitacion;
+        this.usuario = usuario;
+        this.habitacion = habitacion;
         this.tarjetaV.cancelar.addActionListener(this);
         this.tarjetaV.continuar.addActionListener(this);
         this.tarjetaV.listaTipo.addActionListener(this);
@@ -56,7 +58,7 @@ public class TarjetaC implements ActionListener {
         }
 
         if (e.getSource() == tarjetaV.continuar) {
-            
+
             if (!tarjetaV.tnumTarjeta.getText().toString().isEmpty()
                     && !tarjetaV.cvv.getText().toString().isEmpty()
                     && !tarjetaV.tnombrePropietario.getText().toString().isEmpty()
@@ -64,25 +66,26 @@ public class TarjetaC implements ActionListener {
                     && !tarjetaV.listaTipo.getSelectedItem().toString().isEmpty()
                     && !tarjetaV.listaBanco.getSelectedItem().toString().isEmpty()
                     && !tarjetaV.listaTipoDebito.getSelectedItem().toString().isEmpty()) {
-                            if(tarjetaV.guardar.isSelected()){
-                                 setAdd();
-                             }
-                            result = validarDatos();
-                            if(result=true){
-                                System.out.print("Funciona loco");
-                            }
-            } else{
-                 JOptionPane.showMessageDialog(tarjetaV, "Faltan datos por ingresar");
+                if (tarjetaV.guardar.isSelected()) {
+
+                    result = validarDatos();
+                    if (result = true) {
+                        setAdd();
+                        System.out.print("Funciona loco");
+                        PagoV pv = new PagoV();
+                        PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta");
+
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(tarjetaV, "Faltan datos por ingresar");
             }
         }
-                
-            
-            
-        
 
         if (e.getSource() == tarjetaV.cancelar) {
-            MetodoDePagoV metodoPagoV = new MetodoDePagoV();
-            MetodoDePagoC metodoPagoC = new MetodoDePagoC(metodoPagoV,usuario,habitacion);
+            PagoV pv = new PagoV();
+            PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta");
         }
     }
 
@@ -100,7 +103,7 @@ public class TarjetaC implements ActionListener {
 
         // Obtener la fecha actual
         LocalDate currentDate = LocalDate.now();
-        
+
         // Calcular la fecha de vencimiento máxima (último día del mes)
         LocalDate fechaVencimiento = LocalDate.of(year, month, 1).plusMonths(1).minusDays(1);
         // Calcular los años válidos para la tarjeta (3 o 4 años)
@@ -109,56 +112,50 @@ public class TarjetaC implements ActionListener {
 
         // Validar que la fecha de vencimiento esté dentro del rango permitido
         return !fechaVencimiento.isBefore(currentDate) && (fechaVencimiento.isBefore(fechaLimiteSuperior) || fechaVencimiento.isEqual(fechaLimiteSuperior));
-    
 
     }
 
     public void setAdd() {
-        int r = 1, resultado=0;
+        int r = 1, resultado = 0;
         String tipoTarjeta = tarjetaV.listaTipo.getSelectedItem().toString();
         String tipoDebito = tarjetaV.listaTipoDebito.getSelectedItem().toString();
         String banco = tarjetaV.listaBanco.getSelectedItem().toString();
-        
-        String numTarjeta="", cvv="";
 
+        String numTarjeta = "", cvv = "";
 
-         if( tarjetaV.tnumTarjeta.getText().length() >= 13 &&  tarjetaV.tnumTarjeta.getText().length() <= 19 ){
-             numTarjeta =tarjetaV.tnumTarjeta.getText().toString();
-            cvv =tarjetaV.cvv.getText().toString();
-         }
-
-        
-        if( tarjetaV.tnumTarjeta.getText().length() < 13 
-                || tarjetaV.tnumTarjeta.getText().length() > 19 
-                || tarjetaV.tnumTarjeta.getText().length() < 0){
-            JOptionPane.showMessageDialog(tarjetaV, "Ingrese un numero valido para la tarjeta");
-        r=0;
+        if (tarjetaV.tnumTarjeta.getText().length() >= 13 && tarjetaV.tnumTarjeta.getText().length() <= 19) {
+            numTarjeta = tarjetaV.tnumTarjeta.getText().toString();
+            cvv = tarjetaV.cvv.getText().toString();
         }
-        
-        
-        
+
+        if (tarjetaV.tnumTarjeta.getText().length() < 13
+                || tarjetaV.tnumTarjeta.getText().length() > 19
+                || tarjetaV.tnumTarjeta.getText().length() < 0) {
+            JOptionPane.showMessageDialog(tarjetaV, "Ingrese un numero valido para la tarjeta");
+            r = 0;
+        }
 
         if (tarjetaV.cvv.getText().length() != 3) {
             JOptionPane.showMessageDialog(tarjetaV, "El CVV no puede ser menor o mayor a 3");
             r = 0;
-        } 
-        
+        }
+
         String fecha;
         fecha = tarjetaV.tvencimiento.getText().toString();
 
         if (validarFecha(fecha)) {
             System.out.println("Fecha válida: ");
         } else {
-            JOptionPane.showMessageDialog(tarjetaV, "El formato de la fecha no coincide MM/AAAA :"+ fecha);
+            JOptionPane.showMessageDialog(tarjetaV, "El formato de la fecha no coincide MM/AAAA :" + fecha);
             System.out.println("Fecha inválida: " + fecha);
         }
-        
-        String nombrePropietario="", apellidoPropietario="";
-        
+
+        String nombrePropietario = "", apellidoPropietario = "";
+
         try {
             nombrePropietario = tarjetaV.tnombrePropietario.getText().toString();
             apellidoPropietario = tarjetaV.tapellidoPropietario.getText().toString();
-            
+
             validarEspaciosNumeros(nombrePropietario);
             validarEspaciosNumeros(apellidoPropietario);
 
@@ -166,7 +163,8 @@ public class TarjetaC implements ActionListener {
             r = 0;
             JOptionPane.showMessageDialog(tarjetaV, "Error: " + e.getMessage());
         }
-        
+
+        tar.setId(id);
         tar.setNumTarjeta(numTarjeta);
         tar.setCvv(cvv);
         tar.setNombrePropietario(nombrePropietario);
@@ -175,8 +173,8 @@ public class TarjetaC implements ActionListener {
         tar.setTipoTarjeta(tipoTarjeta);
         tar.setBanco(banco);
         tar.setTipoDebito(tipoDebito);
-        tar.setIdUsuario(id);
-        
+        tar.setIdUsuario(usuario.getIdUsuario());
+
         if (r == 1) {
             resultado = tarDao.setAgregar(tar);
         }
@@ -189,52 +187,47 @@ public class TarjetaC implements ActionListener {
 
     }
 
-    public boolean validarDatos(){
-        int r = 1, resultado=0;
+    public boolean validarDatos() {
+        int r = 1, resultado = 0;
         String tipoTarjeta = tarjetaV.listaTipo.getSelectedItem().toString();
         String tipoDebito = tarjetaV.listaTipoDebito.getSelectedItem().toString();
         String banco = tarjetaV.listaBanco.getSelectedItem().toString();
-        
-        String numTarjeta="", cvv="";
 
+        String numTarjeta = "", cvv = "";
 
-         if( tarjetaV.tnumTarjeta.getText().length() >= 13 &&  tarjetaV.tnumTarjeta.getText().length() <= 19 ){
-             numTarjeta =tarjetaV.tnumTarjeta.getText().toString();
-            cvv =tarjetaV.cvv.getText().toString();
-         }
-
-        
-        if( tarjetaV.tnumTarjeta.getText().length() < 13 
-                || tarjetaV.tnumTarjeta.getText().length() > 19 
-                || tarjetaV.tnumTarjeta.getText().length() < 0){
-            JOptionPane.showMessageDialog(tarjetaV, "Ingrese un numero valido para la tarjeta");
-        r=0;
+        if (tarjetaV.tnumTarjeta.getText().length() >= 13 && tarjetaV.tnumTarjeta.getText().length() <= 19) {
+            numTarjeta = tarjetaV.tnumTarjeta.getText().toString();
+            cvv = tarjetaV.cvv.getText().toString();
         }
-        
-        
-        
+
+        if (tarjetaV.tnumTarjeta.getText().length() < 13
+                || tarjetaV.tnumTarjeta.getText().length() > 19
+                || tarjetaV.tnumTarjeta.getText().length() < 0) {
+            JOptionPane.showMessageDialog(tarjetaV, "Ingrese un numero valido para la tarjeta");
+            r = 0;
+        }
 
         if (tarjetaV.cvv.getText().length() != 3) {
             JOptionPane.showMessageDialog(tarjetaV, "El CVV no puede ser menor o mayor a 3");
             r = 0;
-        } 
-        
+        }
+
         String fecha;
         fecha = tarjetaV.tvencimiento.getText().toString();
 
         if (validarFecha(fecha)) {
             System.out.println("Fecha válida: ");
         } else {
-            JOptionPane.showMessageDialog(tarjetaV, "El formato de la fecha no coincide MM/AAAA :"+ fecha);
+            JOptionPane.showMessageDialog(tarjetaV, "El formato de la fecha no coincide MM/AAAA :" + fecha);
             System.out.println("Fecha inválida: " + fecha);
         }
-        
-        String nombrePropietario="", apellidoPropietario="";
-        
+
+        String nombrePropietario = "", apellidoPropietario = "";
+
         try {
             nombrePropietario = tarjetaV.tnombrePropietario.getText().toString();
             apellidoPropietario = tarjetaV.tapellidoPropietario.getText().toString();
-            
+
             validarEspaciosNumeros(nombrePropietario);
             validarEspaciosNumeros(apellidoPropietario);
 
@@ -242,11 +235,11 @@ public class TarjetaC implements ActionListener {
             r = 0;
             JOptionPane.showMessageDialog(tarjetaV, "Error: " + e.getMessage());
         }
-        if(r==1){
+        if (r == 1) {
             return true;
         } else {
             return false;
         }
-        
+
     }
 }

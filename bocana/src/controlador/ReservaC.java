@@ -14,7 +14,9 @@ import modelo.Habitacion;
 import modelo.Reserva;
 import modelo.ReservaDao;
 import modelo.Usuario;
+import vista.MetodoDePagoV;
 import vista.PagoV;
+import vista.ResenaV;
 import vista.ReservaV;
 
 /**
@@ -40,8 +42,7 @@ public class ReservaC implements ActionListener{
         this.habitacion = h;
 
         this.vista.nombre_habitacion.setText(habitacion.getNombreHabitacion().toString());
-        this.vista.monto.setText(Double.toString(habitacion.getTarifa()));
-        this.vista.usuario.setText(usuario.getNombre1()+""+usuario.getApellido1());
+        this.vista.usuario.setText(usuario.getNombre1()+" "+usuario.getApellido1());
         this.vista.setExtendedState(6);
         this.vista.setVisible(true);
         this.vista.setDefaultCloseOperation(3);
@@ -53,8 +54,8 @@ public class ReservaC implements ActionListener{
             if(!vista.fechaInicio.getDate().toString().isBlank() 
                     || !vista.fechaInicio.getDate().toString().isBlank()){
                  if(vista.aceptar.isSelected()){
-                PagoV pv = new PagoV();
-                PagoC pc = new PagoC(pv);
+                MetodoDePagoV mp = new MetodoDePagoV();
+                MetodoDePagoC mpc = new MetodoDePagoC(mp, usuario, habitacion);
                 vista.setVisible(false);
                 } else {
                      JOptionPane.showMessageDialog(vista, "Por favor acepta nuestras politicas");
@@ -65,7 +66,9 @@ public class ReservaC implements ActionListener{
            
         }
         if(e.getSource()==vista.cancelar){
-            
+            ResenaV rv = new ResenaV();
+            ResenaC rc = new ResenaC(rv, usuario, habitacion);
+            vista.setVisible(false);
         }
         
     }

@@ -54,5 +54,32 @@ public class PagoDao {
            }
        }
    }
+    
+    public int buscarDescuento(int idOferta){
+        String sql = "SELECT o.descuento, fechaInicio, fechaFin FROM ofertas_especiales o JOIN habitaciones h ON o.idOfertaEspecial = h.idOfertaEspecial WHERE h.idOfertaEspecial="+idOferta;
+        
+         try{
+           con=conectar.getConnection();
+           ps=con.prepareStatement(sql);
+           
+           
+           
+           ps.executeUpdate();
+           return 1;
+              
+       } catch (SQLException e) {
+           JOptionPane.showMessageDialog(null, e.toString(),"Error de insercion"+e.getMessage(),JOptionPane.ERROR_MESSAGE);
+           return 0;
+       } finally {
+           try{
+               if(con!=null){
+                   con.close();
+               }
+           } catch (SQLException sqle){
+               JOptionPane.showMessageDialog(null, sqle.toString());
+            }
+          }
+
+      }
     }
 

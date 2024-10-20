@@ -138,8 +138,8 @@ public class UsuarioDao {
    
    public ArrayList buscarTarjeta(int id_usu){
        String tarjeta="", nombre, apellido;
-       int id;
-       String sql = "SELECT tarjeta.id, tarjeta.nombrePropietario, tarjeta.apellidoPropietario FROM tarjeta JOIN usuarios WHERE tarjeta.id_usuario=usuarios.idUsuario && usuarios.idUsuario="+id_usu;
+       String numT;
+       String sql = "SELECT tarjeta.numTarjeta, tarjeta.nombrePropietario, tarjeta.apellidoPropietario FROM tarjeta JOIN usuarios WHERE tarjeta.idUsuario=usuarios.idUsuario && usuarios.idUsuario="+id_usu;
        ArrayList <String> tarjetas  = new ArrayList<String>();
        
        try{
@@ -149,11 +149,11 @@ public class UsuarioDao {
             
                  while(rs.next()){
            
-           id=(rs.getInt(1));
+           numT=(rs.getString(1));
            nombre=(rs.getString(2));
            apellido=(rs.getString(3));
            
-           tarjeta = id + " - " + nombre + " " + apellido;
+           tarjeta = numT + " - " + nombre + " " + apellido;
            
            tarjetas.add(tarjeta);
                  }
