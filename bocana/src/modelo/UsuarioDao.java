@@ -135,45 +135,6 @@ public class UsuarioDao {
             
         }
     }
-   
-   public ArrayList buscarTarjeta(int id_usu){
-       String tarjeta="", nombre, apellido;
-       String numT;
-       String sql = "SELECT tarjeta.numTarjeta, tarjeta.nombrePropietario, tarjeta.apellidoPropietario FROM tarjeta JOIN usuarios WHERE tarjeta.idUsuario=usuarios.idUsuario && usuarios.idUsuario="+id_usu;
-       ArrayList <String> tarjetas  = new ArrayList<String>();
-       
-       try{
-                con = conectar.getConnection();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            
-                 while(rs.next()){
-           
-           numT=(rs.getString(1));
-           nombre=(rs.getString(2));
-           apellido=(rs.getString(3));
-           
-           tarjeta = numT + " - " + nombre + " " + apellido;
-           
-           tarjetas.add(tarjeta);
-                 }
-
-              
-       } catch (SQLException e) {
-           JOptionPane.showMessageDialog(null, e.toString(),"Error de busqueda"+e.getMessage(),JOptionPane.ERROR_MESSAGE);
-           
-       } finally {
-           try{
-               if(con!=null){
-                   con.close();
-               }
-           } catch (SQLException sqle){
-               JOptionPane.showMessageDialog(null, sqle.toString());
-               
-           }
-       }
-            return tarjetas;
-   }
 
     
 }

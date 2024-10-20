@@ -4,26 +4,49 @@
  */
 package modelo;
 
-import java.time.LocalDateTime;
+
+import java.util.Date;
 
 /**
  *
  * @author estud
  */
 public class Pago {
+    int idPago;
+    double descuento;
     double monto;
-    LocalDateTime fecha;
+    String metodo;
+    double valorFinal;
+    Date fecha;
     int id_usuario;
-    int id_habitacion;
 
-    public Pago(double monto, LocalDateTime fecha, int id_usuario, int id_habitacion) {
+    public Pago(int idPago, double descuento, double monto, String metodo, double valorFinal,Date fecha, int id_usuario) {
+        this.idPago = idPago;
+        this.descuento = descuento;
         this.monto = monto;
+        this.metodo = metodo;
+        this.valorFinal = valorFinal;
         this.fecha = fecha;
         this.id_usuario = id_usuario;
-        this.id_habitacion = id_habitacion;
+    }
+  
+    public Pago() {
     }
 
-    public Pago() {
+    public int getIdPago() {
+        return idPago;
+    }
+
+    public void setIdPago(int idPago) {
+        this.idPago = idPago;
+    }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
     }
 
     public double getMonto() {
@@ -34,11 +57,19 @@ public class Pago {
         this.monto = monto;
     }
 
-    public LocalDateTime getFecha() {
+    public double getValorFinal() {
+        return valorFinal;
+    }
+
+    public void setValorFinal(double valorFinal) {
+        this.valorFinal = valorFinal;
+    }
+
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -50,13 +81,15 @@ public class Pago {
         this.id_usuario = id_usuario;
     }
 
-    public int getId_habitacion() {
-        return id_habitacion;
+    public String getMetodo() {
+        return metodo;
     }
 
-    public void setId_hotel(int id_hotel) {
-        this.id_habitacion = id_habitacion;
+    public void setMetodo(String metodo) {
+        this.metodo = metodo;
     }
+
+    
     
     
 }

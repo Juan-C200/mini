@@ -18,6 +18,7 @@ import controlador.ResenaC;
 import controlador.TarjetaC;
 import controlador.UsuarioC;
 import controlador.VerReservasC;
+import java.util.List;
 import javax.swing.JFrame;
 
 import modelo.Usuario;
@@ -48,8 +49,8 @@ public class Index {
 //        IniciarSesionV iniciarSesionV = new IniciarSesionV();
 //        IniciarSesionC iniciarSesionC = new IniciarSesionC(iniciarSesionV);
     
-        HotelV hotel = new HotelV();
-        HotelC hot = new HotelC(hotel);
+//        HotelV hotel = new HotelV();
+//        HotelC hot = new HotelC(hotel);
 
         //    MetodoDePagoV mp = new MetodoDePagoV();
         //    MetodoDePagoC mep = new MetodoDePagoC(mp);
@@ -72,6 +73,12 @@ public class Index {
 //    
 //        AlojamientosV aloja = new AlojamientosV();
 //        AlojamientosC al = new AlojamientosC(aloja, usuario);
+UsuarioDao uDao = new UsuarioDao();
+    Usuario usuario = new Usuario();
+    List<Usuario> usuarios = uDao.listar();
+    usuario = usuarios.get(1);
+        AlojamientosV aloja = new AlojamientosV();
+        AlojamientosC al = new AlojamientosC(aloja, usuario);
 
         
 

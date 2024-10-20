@@ -28,9 +28,7 @@ import modelo.UsuarioDao;
  * @author estud
  */
 public class PagoV extends JFrame{
-    UsuarioDao usuDao= new UsuarioDao();
-    public int id_usu;
-    String temp;
+
     
    
 
@@ -39,8 +37,6 @@ public class PagoV extends JFrame{
     public JLabel titulo, tmonto, monto, tfecha, fecha, tiTarjetas;
     public FlowLayout miflow;
     public GridLayout grid;
-    public String tarjetas[];
-    public ArrayList <String> lisTarjetas;
     public JButton continuar, cancelar, agregarTarjeta;
     public JComboBox listaTarjetas;
     public GridBagConstraints gbc;
@@ -48,23 +44,10 @@ public class PagoV extends JFrame{
     
     public PagoV(){
         super("Pago");
-        
-        lisTarjetas = usuDao.buscarTarjeta(id_usu);
-        
-        tarjetas = new String[usuDao.buscarTarjeta(id_usu).size()+1];
+
         
         
-        for(int x=0;x<usuDao.buscarTarjeta(id_usu).size();x++){
-            if(x==0){
-                tarjetas[x]="";
-            }
-            temp = lisTarjetas.get(x);
-            System.out.print(temp);
-            tarjetas[x] = temp;
-        }
-        
-        
-        
+              
          ImageIcon fondo = new ImageIcon("fondo.jpg");
          setContentPane(new JLabel(fondo));
          
@@ -106,7 +89,7 @@ public class PagoV extends JFrame{
         
         
         
-        listaTarjetas = new JComboBox(tarjetas);
+        
         tiTarjetas = new JLabel("Seleccione una tarjeta *(Solo si el pago es por tarjeta)");
         tmonto = new JLabel ("Monto:");
         monto = new JLabel("");
@@ -125,7 +108,7 @@ public class PagoV extends JFrame{
         panelCentro.add(tfecha);
         panelCentro.add(fecha);
         panelCentro.add(tiTarjetas);
-        panelCentro.add(listaTarjetas);
+
         
         
         
