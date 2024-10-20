@@ -31,8 +31,8 @@ public class OfertaDao {
 
             ps.setInt(1, o.getIdOfertaEspecial());
             ps.setDouble(2, o.getDescuento());
-            ps.setDate(3, (Date) o.getFechaInicio());
-            ps.setDate(4, (Date) o.getFechaFin());
+            ps.setDate(3, new java.sql.Date(o.getFechaInicio().getTime()));
+            ps.setDate(4, new java.sql.Date(o.getFechaFin().getTime()));
 
             ps.executeUpdate();
             return 1;

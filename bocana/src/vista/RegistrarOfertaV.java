@@ -36,8 +36,8 @@ public class RegistrarOfertaV extends JFrame{
     public JLabel lregistrar, ldescuento, lfechaInicio, lfechaFin, lhabitacion;
     public JTextField tdescuento ;
     public Container contenedor;
-    public String listaH[];
-    public ArrayList <String> habitaciones;
+    
+    
     public FlowLayout miflow;
     public GridBagLayout gridbag;
     public GridLayout migrid;
@@ -101,11 +101,11 @@ public class RegistrarOfertaV extends JFrame{
         tdescuento = new JTextField(10);
         tdescuento.setFont(new Font("Times New Roman", 0, 30));
         fechaInicio = new JDateChooser();
-        fechaInicio.setFont(new Font("Times New Roman", 0, 30));
+        fechaInicio.setFont(new Font("Times New Roman", 0, 15));
         fechaFin = new JDateChooser();
-        fechaFin.setFont(new Font("Times New Roman", 0, 30));
-
-        lista.setFont(new Font("Times New Roman", 0, 25));
+        fechaFin.setFont(new Font("Times New Roman", 0, 15));
+        
+        
 
         panelCentro.add(ldescuento);
         panelCentro.add(tdescuento);
@@ -114,7 +114,7 @@ public class RegistrarOfertaV extends JFrame{
         panelCentro.add(lfechaFin);
         panelCentro.add(fechaFin);
         panelCentro.add(lhabitacion);
-        panelCentro.add(lista);
+        
 
         
         gbc = new GridBagConstraints();

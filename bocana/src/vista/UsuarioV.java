@@ -26,8 +26,8 @@ import javax.swing.JScrollPane;
 public class UsuarioV extends JFrame{
     
     public Container contenedor;
-    public JLabel lnombreUsuario, leditarPerfil, lverReservas, lagregarAlojamiento, leliminarPerfil, lverAlojamientos;
-    public JButton beditarPerfil, bverReservas, bagregarAlojamiento, beliminarPerfil, bvolver, bcerrarSesion, bverAlojamientos;
+    public JLabel lnombreUsuario, leditarPerfil, lverReservas, lagregarAlojamiento, leliminarPerfil, lverAlojamientos, lagregarOferta;
+    public JButton beditarPerfil, bverReservas, bagregarAlojamiento, beliminarPerfil, bvolver, bcerrarSesion, bverAlojamientos, bagregar;
 
 
     public JPanel panel;
@@ -119,7 +119,7 @@ public class UsuarioV extends JFrame{
         leliminarPerfil.setFont(new Font("Times New Roman", 0, 30));
         leliminarPerfil.setForeground(Color.red);
         
-        gbc.gridy = 9;
+        gbc.gridy = 11;
         gbc.gridwidth = 1;
         panel.add(leliminarPerfil, gbc);
         
@@ -128,7 +128,7 @@ public class UsuarioV extends JFrame{
         beliminarPerfil.setForeground(Color.red);
         beliminarPerfil.setContentAreaFilled(false);
         
-        gbc.gridy = 10;
+        gbc.gridy = 12;
         gbc.gridwidth = 2;
         panel.add(beliminarPerfil, gbc);
         
@@ -154,7 +154,7 @@ public class UsuarioV extends JFrame{
         panelSur.add(bvolver);
         panelSur.add(bcerrarSesion);
         
-        gbc.gridy = 11;
+        gbc.gridy = 13;
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(panelSur, gbc);
