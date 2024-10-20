@@ -29,7 +29,7 @@ import modelo.UsuarioDao;
  */
 public class PagoV extends JFrame{
     UsuarioDao usuDao= new UsuarioDao();
-    int id_usu=2;
+    public int id_usu;
     String temp;
     
    

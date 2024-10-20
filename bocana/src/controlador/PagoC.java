@@ -7,6 +7,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.Habitacion;
+import modelo.PagoDao;
 import modelo.Usuario;
 import vista.PagoV;
 import vista.TarjetaV;
@@ -17,6 +18,7 @@ import vista.TarjetaV;
  */
 public class PagoC implements ActionListener{
     public PagoV pV = new PagoV();
+    public PagoDao dao = new PagoDao();
     private Usuario usuario = new Usuario();
     private Habitacion habitacion = new Habitacion();
     
@@ -29,6 +31,10 @@ public class PagoC implements ActionListener{
          this.pV.setExtendedState(6);
         this.pV.setVisible(true);
         this.pV.setDefaultCloseOperation(3);
+        
+        this.pV.id_usu = usuario.getIdUsuario();
+        
+        
     }
 
     @Override
