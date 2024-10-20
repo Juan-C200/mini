@@ -28,7 +28,7 @@ public class ReservaDao {
         String sql = "SELECT r.idReserva, r.fechaInicio, r.fechaFin, r.estado, r.idUsuario, r.idHabitacion, "
                 + "u.documento, u.nombre1, u.nombre2, u.apellido1 , u.apellido2, u.correo, u.telefono, u.direccion, u.contrasena, u.idRol, "
                 + "h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion , h.idHotel, "
-                + "ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones, ho.idOfertaEspecial FROM reservas r "
+                + "ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones FROM reservas r "
                 + "JOIN usuarios u ON u.idUsuario = r.idUsuario "
                 + "JOIN habitaciones h ON h.idHabitacion = r.idHabitacion "
                 + "JOIN hoteles ho ON ho.idHotel = h.idHotel "
@@ -82,7 +82,7 @@ public class ReservaDao {
                 ho.setNombreHotel(rs.getString(26));
                 ho.setDireccion(rs.getString(27));
                 ho.setNumeroHabitaciones(rs.getInt(28));
-                ho.setOfertaEspecial(rs.getInt(29));
+
                 
                 ArrayList<TipoServicio> servicios = new ArrayList<TipoServicio>();
                 
@@ -133,7 +133,7 @@ public class ReservaDao {
         String sql = "SELECT r.idReserva, r.fechaInicio, r.fechaFin, r.estado, r.idUsuario, r.idHabitacion, "
             + "u.documento, u.nombre1, u.nombre2, u.apellido1, u.apellido2, u.correo, u.telefono, u.direccion, u.contrasena, u.idRol, "
             + "h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion, h.idHotel, "
-            + "ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones, ho.idOfertaEspecial "
+            + "ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones"
             + "FROM reservas r "
             + "JOIN usuarios u ON u.idUsuario = r.idUsuario "
             + "JOIN habitaciones h ON h.idHabitacion = r.idHabitacion "
@@ -191,7 +191,7 @@ public class ReservaDao {
                 ho.setNombreHotel(rs.getString(26));
                 ho.setDireccion(rs.getString(27));
                 ho.setNumeroHabitaciones(rs.getInt(28));
-                ho.setOfertaEspecial(rs.getInt(29));
+
                 
                 ArrayList<TipoServicio> servicios = new ArrayList<TipoServicio>();
                 

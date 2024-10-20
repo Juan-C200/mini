@@ -6,6 +6,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import modelo.Habitacion;
 import modelo.Usuario;
 import vista.AlojamientosV;
@@ -26,12 +27,14 @@ public class MetodoDePagoC implements ActionListener {
     
     Usuario usuario = new Usuario();
     Habitacion habitacion = new Habitacion();
+    Date fecha1, fecha2;
 
-    public MetodoDePagoC(MetodoDePagoV metodoDePagoV, Usuario usuario, Habitacion habitacion) {
+    public MetodoDePagoC(MetodoDePagoV metodoDePagoV, Usuario usuario, Habitacion habitacion, Date fecha1, Date fecha2) {
         this.metodoDePagoV = metodoDePagoV;
         this.usuario=usuario;
         this.habitacion=habitacion;
-        
+        this.fecha1 = fecha1;
+        this.fecha2 = fecha2;
         this.metodoDePagoV.cancelar.addActionListener(this);
         this.metodoDePagoV.continuar.addActionListener(this);
         this.metodoDePagoV.setExtendedState(6);
@@ -46,11 +49,11 @@ public class MetodoDePagoC implements ActionListener {
                 
                     if(metodoDePagoV.lista.getSelectedItem().toString().equals("Tarjeta")){
                         PagoV pv = new PagoV();
-                        PagoC pc = new PagoC(pv, usuario, habitacion,"Tarjeta");
+                        PagoC pc = new PagoC(pv, usuario, habitacion,"Tarjeta", fecha1, fecha2);
                         metodoDePagoV.setVisible(false);
                     }else if(metodoDePagoV.lista.getSelectedItem().toString().equals("Efectivo")){
                         PagoV pv = new PagoV();
-                        PagoC pc = new PagoC(pv, usuario, habitacion, "Efectivo");
+                        PagoC pc = new PagoC(pv, usuario, habitacion, "Efectivo", fecha1, fecha2);
                         metodoDePagoV.setVisible(false);
                     }
             } 

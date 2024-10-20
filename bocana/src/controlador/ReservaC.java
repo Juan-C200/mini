@@ -55,7 +55,7 @@ public class ReservaC implements ActionListener{
                     || !vista.fechaInicio.getDate().toString().isBlank()){
                  if(vista.aceptar.isSelected()){
                 MetodoDePagoV mp = new MetodoDePagoV();
-                MetodoDePagoC mpc = new MetodoDePagoC(mp, usuario, habitacion);
+                MetodoDePagoC mpc = new MetodoDePagoC(mp, usuario, habitacion, vista.fechaInicio.getDate(), vista.fechaFin.getDate());
                 vista.setVisible(false);
                 } else {
                      JOptionPane.showMessageDialog(vista, "Por favor acepta nuestras politicas");

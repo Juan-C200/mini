@@ -140,7 +140,7 @@ public class HabitacionDao {
                 ho.setDireccion(rs.getString(12));
                 ho.setNumeroHabitaciones(rs.getInt(13));
                 
-                h.setOferta();
+
                 
                 ArrayList<TipoServicio> servicios = new ArrayList<TipoServicio>();
                 

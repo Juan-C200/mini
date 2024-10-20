@@ -8,6 +8,7 @@ import static controlador.RegistrarC.validarEspaciosNumeros;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -31,13 +32,16 @@ public class TarjetaC implements ActionListener {
     Usuario usuario = new Usuario();
     Habitacion habitacion = new Habitacion();
     int id = tarDao.ultimoId() + 1;
+    Date fecha1, fecha2;
 
     boolean result;
 
-    public TarjetaC(TarjetaV tarV, Usuario usuario, Habitacion habitacion) {
+    public TarjetaC(TarjetaV tarV, Usuario usuario, Habitacion habitacion, Date fecha1, Date fecha2) {
         this.tarjetaV = tarV;
         this.usuario = usuario;
         this.habitacion = habitacion;
+        this.fecha1 = fecha1;
+        this.fecha2 = fecha2;
         this.tarjetaV.cancelar.addActionListener(this);
         this.tarjetaV.continuar.addActionListener(this);
         this.tarjetaV.listaTipo.addActionListener(this);
@@ -73,7 +77,7 @@ public class TarjetaC implements ActionListener {
                         setAdd();
                         System.out.print("Funciona loco");
                         PagoV pv = new PagoV();
-                        PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta");
+                        PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta", fecha1, fecha2);
 
                     }
                 }
@@ -85,7 +89,7 @@ public class TarjetaC implements ActionListener {
 
         if (e.getSource() == tarjetaV.cancelar) {
             PagoV pv = new PagoV();
-            PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta");
+            PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta", fecha1,fecha2);
         }
     }
 

@@ -93,14 +93,18 @@ public class PagoV extends JFrame{
          panelNorte.add(titulo);
          
         panelSur = new JPanel();
-        grid = new GridLayout(1,2,5,5);
+        grid = new GridLayout(1,3,5,5);
         panelSur.setLayout(grid);
         
         continuar = new JButton("Continuar");
         cancelar = new JButton("Cancelar");
+        agregarTarjeta = new JButton("Agregar Tarjeta");
         
+        panelSur.add(agregarTarjeta);
         panelSur.add(cancelar);
         panelSur.add(continuar);
+        
+        
         
         listaTarjetas = new JComboBox(tarjetas);
         tiTarjetas = new JLabel("Seleccione una tarjeta *(Solo si el pago es por tarjeta)");
@@ -109,7 +113,8 @@ public class PagoV extends JFrame{
         tfecha = new JLabel("Fecha:");
         fecha = new JLabel("");
         
-        agregarTarjeta = new JButton("Agregar Tarjeta");
+        
+
         
         panelCentro = new JPanel();
         grid = new GridLayout(4,2,7,7);
@@ -121,7 +126,7 @@ public class PagoV extends JFrame{
         panelCentro.add(fecha);
         panelCentro.add(tiTarjetas);
         panelCentro.add(listaTarjetas);
-        panelCentro.add(agregarTarjeta);
+        
         
         
         
@@ -138,5 +143,6 @@ public class PagoV extends JFrame{
         panel.add(panelSur, gbc);
         
         contenedor.add(panel);
+
     }
 }

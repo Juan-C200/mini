@@ -22,7 +22,7 @@ public class Hotel {
     public List<TipoServicio> servicios;
     public List<Habitacion> habitaciones;
 
-    public Hotel(int idHotel, int nit, String nombreHotel, String direccion, int numeroHabitaciones, List<TipoServicio> servicios, int ofertaEspecial, Usuario usuario, List<Habitacion> habitaciones) {
+    public Hotel(int idHotel, int nit, String nombreHotel, String direccion, int numeroHabitaciones, List<TipoServicio> servicios, Usuario usuario, List<Habitacion> habitaciones) {
         this.idHotel = idHotel;
         this.nit = nit;
         this.nombreHotel = nombreHotel;
@@ -30,7 +30,7 @@ public class Hotel {
         this.numeroHabitaciones = numeroHabitaciones;
         this.servicios = servicios;
         this.habitaciones=habitaciones;
-        this.ofertaEspecial=ofertaEspecial;
+
         this.usuario=usuario;
     }
     public Hotel(){
@@ -85,15 +85,6 @@ public class Hotel {
         this.habitaciones = habitaciones;
     }
 
-    
-
-    public int getOfertaEspecial() {
-        return ofertaEspecial;
-    }
-
-    public void setOfertaEspecial(int ofertaEspecial) {
-        this.ofertaEspecial = ofertaEspecial;
-    }
 
     public List<TipoServicio> getServicios() {
         return servicios;

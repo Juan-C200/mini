@@ -25,7 +25,7 @@ public class HotelDao {
     
     public List listar() {
         ArrayList<Hotel> datosHotel = new ArrayList<Hotel>();
-        String sql = "SELECT h.idHotel, h.nit, h.nombreHotel, h.direccion, h.numeroHabitaciones, h.idOfertaEspecial, h.idUsuario, "
+        String sql = "SELECT h.idHotel, h.nit, h.nombreHotel, h.direccion, h.numeroHabitaciones, h.idUsuario, "
            + "u.documento, u.nombre1, u.nombre2, u.apellido1, u.apellido2, u.correo, u.telefono, u.direccion, u.contrasena, u.idRol "
            + "FROM hoteles h JOIN usuarios u ON h.idUsuario = u.idUsuario";
 
@@ -43,7 +43,7 @@ public class HotelDao {
                 h.setNombreHotel(rs.getString(3));
                 h.setDireccion(rs.getString(4));
                 h.setNumeroHabitaciones(rs.getInt(5));
-                h.setOfertaEspecial(rs.getInt(6));
+
                 
                 
                 u.setIdUsuario(rs.getInt(7));
@@ -108,7 +108,7 @@ public class HotelDao {
     }
     
     public int setAgregar (Hotel h){
-       String sql = "INSERT INTO hoteles VALUES (?, ?, ?, ?, ?, ?, ?)";
+       String sql = "INSERT INTO hoteles VALUES (?, ?, ?, ?, ?, ?)";
        
        try{
            con=conectar.getConnection();
@@ -120,7 +120,6 @@ public class HotelDao {
             ps.setString(3, h.getNombreHotel());
             ps.setString(4, h.getDireccion());
             ps.setInt(5, h.getNumeroHabitaciones());
-            ps.setInt(6, 1);
             ps.setInt(7, h.getUsuario().getIdUsuario());
            
            ps.executeUpdate();

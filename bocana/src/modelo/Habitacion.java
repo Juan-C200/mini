@@ -20,10 +20,12 @@ public class Habitacion {
     public String descripcionDetallada;
     public TipoHabitacion tipoHabitacion;
     public Hotel hotel;
+    public Oferta oferta;
     public List<byte[]> imagenes;
     public List<JLabel> fotos;
 
-    public Habitacion(int idHabitacion,String nombreHabitacion, String estado, double tarifa, String descripcionBreve, String descripcionDetallada, TipoHabitacion tipoHabitacion, Hotel hotel) {
+    public Habitacion(int idHabitacion,String nombreHabitacion, String estado, double tarifa, String descripcionBreve, String descripcionDetallada, TipoHabitacion tipoHabitacion, Hotel hotel, Oferta oferta) {
+        this.oferta = oferta;
         this.idHabitacion = idHabitacion;
         this.nombreHabitacion=nombreHabitacion;
         this.estado = estado;
@@ -118,7 +120,16 @@ public class Habitacion {
     public void setFotos(List<JLabel> fotos) {
         this.fotos = fotos;
     }
-        
+
+    public Oferta getOferta() {
+        return oferta;
+    }
+
+    public void setOferta(Oferta oferta) {
+        this.oferta = oferta;
+    }
+      
+    
     
     
 }

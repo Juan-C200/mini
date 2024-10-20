@@ -27,7 +27,7 @@ public class ResenaDao {
         ArrayList<Resena> resenas = new ArrayList<>();
         String sql = "SELECT r.idResena, r.calificacion, r.comentario, r.idUsuario, r.idHotel"
                 + ", u.documento, u.nombre1, u.nombre2, u.apellido1 , u.apellido2, u.correo, u.telefono, u.direccion, u.contrasena, u.idRol,"
-                + " h.nit, h.nombreHotel, h.direccion, h.numeroHabitaciones, h.idOfertaEspecial FROM resenas r "
+                + " h.nit, h.nombreHotel, h.direccion, h.numeroHabitaciones FROM resenas r "
                 + "JOIN usuarios u ON r.idUsuario = u.idUsuario "
                 + "JOIN hoteles h ON r.idHotel = h.idHotel WHERE r.idHotel = " + idHotel;
         try {
@@ -63,7 +63,7 @@ public class ResenaDao {
                 h.setNombreHotel(rs.getString(17));
                 h.setDireccion(rs.getString(18));
                 h.setNumeroHabitaciones(rs.getInt(19));
-                h.setOfertaEspecial(rs.getInt(20));
+
                 r.setHotel(h);
                 
                 
