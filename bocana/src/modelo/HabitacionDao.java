@@ -32,7 +32,7 @@ public class HabitacionDao {
     public List listar() {
         ArrayList<Habitacion> datosHabitaciones = new ArrayList<Habitacion>();
         String sql = "SELECT h.idHabitacion, h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion , h.idHotel,"
-                + " ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones, ho.idOfertaEspecial"
+                + " ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones"
                 + " FROM habitaciones h "
                 + "JOIN tipos_habitaciones tp ON tp.idTipoHabitacion = h.idTipoHabitacion "
                 + "JOIN hoteles ho ON ho.idHotel = h.idHotel";
@@ -62,7 +62,7 @@ public class HabitacionDao {
                 ho.setNombreHotel(rs.getString(11));
                 ho.setDireccion(rs.getString(12));
                 ho.setNumeroHabitaciones(rs.getInt(13));
-                ho.setOfertaEspecial(rs.getInt(14));
+
                 
                 ArrayList<TipoServicio> servicios = new ArrayList<TipoServicio>();
                 
@@ -109,7 +109,7 @@ public class HabitacionDao {
     public List listarPorHotel(int idHotel) {
         ArrayList<Habitacion> datosHabitaciones = new ArrayList<Habitacion>();
         String sql = "SELECT h.idHabitacion, h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion , h.idHotel,"
-                + " ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones, ho.idOfertaEspecial"
+                + " ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones, h.idOfertaEspecial"
                 + " FROM habitaciones h "
                 + "JOIN tipos_habitaciones tp ON tp.idTipoHabitacion = h.idTipoHabitacion "
                 + "JOIN hoteles ho ON ho.idHotel = h.idHotel WHERE h.idHotel = "+idHotel;
@@ -139,7 +139,8 @@ public class HabitacionDao {
                 ho.setNombreHotel(rs.getString(11));
                 ho.setDireccion(rs.getString(12));
                 ho.setNumeroHabitaciones(rs.getInt(13));
-                ho.setOfertaEspecial(rs.getInt(14));
+                
+                h.setOferta();
                 
                 ArrayList<TipoServicio> servicios = new ArrayList<TipoServicio>();
                 
