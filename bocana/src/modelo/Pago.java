@@ -12,13 +12,13 @@ import java.util.Date;
  * @author estud
  */
 public class Pago {
-    int idPago;
-    double descuento;
-    double monto;
-    String metodo;
-    double valorFinal;
-    Date fecha;
-    int id_usuario;
+    public int idPago;
+    public double descuento;
+    public double monto;
+    public String metodo;
+    public double valorFinal;
+    public Date fecha;
+    public int id_usuario;
 
     public Pago(int idPago, double descuento, double monto, String metodo, double valorFinal,Date fecha, int id_usuario) {
         this.idPago = idPago;

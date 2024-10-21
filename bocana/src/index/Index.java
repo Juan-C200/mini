@@ -76,7 +76,7 @@ public class Index {
 UsuarioDao uDao = new UsuarioDao();
     Usuario usuario = new Usuario();
     List<Usuario> usuarios = uDao.listar();
-    usuario = usuarios.get(1);
+    usuario = usuarios.get(0);
         AlojamientosV aloja = new AlojamientosV();
         AlojamientosC al = new AlojamientosC(aloja, usuario);
 

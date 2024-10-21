@@ -24,8 +24,8 @@ public class Habitacion {
     public List<byte[]> imagenes;
     public List<JLabel> fotos;
 
-    public Habitacion(int idHabitacion,String nombreHabitacion, String estado, double tarifa, String descripcionBreve, String descripcionDetallada, TipoHabitacion tipoHabitacion, Hotel hotel, Oferta oferta) {
-        this.oferta = oferta;
+    public Habitacion(int idHabitacion,String nombreHabitacion, String estado, double tarifa, String descripcionBreve, String descripcionDetallada, TipoHabitacion tipoHabitacion, Hotel hotel) {
+        
         this.idHabitacion = idHabitacion;
         this.nombreHabitacion=nombreHabitacion;
         this.estado = estado;

@@ -307,6 +307,42 @@ public class HabitacionDao {
     }
     
     
+    public int setActualizar(Habitacion h){
+        String sql="UPDATE habitaciones SET nombreHabitacion=?, estado=?, tarifa=?, descripcionBreve=?, descripcionDetallada=?, idTipoHabitacion, idHotel=? WHERE idHabitacion=?";
+        
+        try{
+            con=conectar.getConnection();
+            ps=con.prepareStatement(sql);
+            
+            ps.setString(1,h.getNombreHabitacion());
+            ps.setString(2,h.getEstado());
+            ps.setDouble(3,h.getTarifa());
+            ps.setString(4,h.getDescripcionBreve());
+            ps.setString(5,h.getDescripcionDetallada());
+            ps.setInt(6,h.getTipoHabitacion().getIdTipoHabitacion());
+            ps.setInt(7,h.getHotel().getIdHotel());
+            ps.setInt(8,h.getIdHabitacion());
+
+
+            
+            ps.executeUpdate();
+            return 1;
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.toString(),"Error de actualizacion"+e.getMessage(),JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }finally{
+            try{
+                if(con!=null){
+                    con.close();
+                }
+            }catch(SQLException sqle){
+                JOptionPane.showMessageDialog(null, sqle.toString());
+            }
+            
+        }
+    }
+    
+    
     public int setAgregarImagenes(int idHabitacion, List<byte[]> imagenes){
         String sql = "INSERT INTO imagenes (idHabitacion, imagen) VALUES (?, ?)";
        
@@ -336,6 +372,53 @@ public class HabitacionDao {
             }
         }
     }
+    
+    public int setActualizarImagenes(int idHabitacion, List<byte[]> imagenes) {
+        String sqlDelete = "DELETE FROM imagenes WHERE idHabitacion = ?";
+        String sqlInsert = "INSERT INTO imagenes (idHabitacion, imagen) VALUES (?, ?)";
+
+        try {
+            con = conectar.getConnection();
+            con.setAutoCommit(false); // para asegurarse de que, si ocurre algún error durante la eliminación o la inserción de las nuevas imágenes, se puede hacer un rollback para mantener la consistencia de los datos.
+
+           
+            ps = con.prepareStatement(sqlDelete);
+            ps.setInt(1, idHabitacion);
+            ps.executeUpdate();
+
+            
+            ps = con.prepareStatement(sqlInsert);
+            for (byte[] imagen : imagenes) {
+                ps.setInt(1, idHabitacion);
+                ps.setBytes(2, imagen);
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+            con.commit(); // Confirmar transacción
+            return 1;
+
+        } catch (SQLException e) {
+            try {
+                if (con != null) {
+                    con.rollback(); // Revertir cambios en caso de error
+                }
+            } catch (SQLException rollbackEx) {
+                JOptionPane.showMessageDialog(null, rollbackEx.toString(), "Error de rollback", JOptionPane.ERROR_MESSAGE);
+            }
+            JOptionPane.showMessageDialog(null, e.toString(), "Error de actualización", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException sqle) {
+                JOptionPane.showMessageDialog(null, sqle.toString(), "Error al cerrar conexión", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     
      public int ultimoId() {
         String sql = "SELECT COUNT(*) FROM habitaciones";
