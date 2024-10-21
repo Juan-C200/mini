@@ -17,7 +17,6 @@ public class Hotel {
     public String nombreHotel;
     public String direccion;
     public int numeroHabitaciones;
-    public int ofertaEspecial;
     public Usuario usuario;
     public List<TipoServicio> servicios;
     public List<Habitacion> habitaciones;

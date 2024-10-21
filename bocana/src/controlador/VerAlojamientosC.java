@@ -31,6 +31,7 @@ import modelo.HotelDao;
 import modelo.ResenaDao;
 import modelo.Usuario;
 import vista.AlojamientosV;
+import vista.EditarAlojamientoV;
 import vista.IniciarSesionV;
 import vista.ResenaV;
 import vista.UsuarioV;
@@ -173,7 +174,7 @@ public class VerAlojamientosC implements ActionListener{
             this.alojamientosV.panelBoton.setPreferredSize(new Dimension(300,40));
             
 
-            this.alojamientosV.bvermas = new JButton("Ver mas");
+            this.alojamientosV.bvermas = new JButton("Editar");
             this.alojamientosV.bvermas.setFont(new Font("Times New Roman", 0, 20));
             this.alojamientosV.bvermas.setBackground(Color.white);
             this.alojamientosV.bvermas.setForeground(Color.BLACK);
@@ -243,7 +244,7 @@ public class VerAlojamientosC implements ActionListener{
                 alojamientosV.setVisible(false);
 
             }else{
-                if(usuario.getIdRol() != 3){
+                
                     Integer idHabitacion = (Integer) boton.getClientProperty("valor");
                     Habitacion habitacion = new Habitacion();
 
@@ -252,13 +253,11 @@ public class VerAlojamientosC implements ActionListener{
                             habitacion=datosHabitaciones.get(i);
                         }
                     }
-
-                    ResenaV resenaV = new ResenaV();
-                    ResenaC resenaC = new ResenaC(resenaV, usuario, habitacion);
+System.out.println("size "+habitacion.getIdHabitacion());
+                    EditarAlojamientoV editarAlojamientoV = new EditarAlojamientoV();
+                    EditarAlojamientoC editarAlojamientoC = new EditarAlojamientoC(editarAlojamientoV, usuario, habitacion);
                     alojamientosV.setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(alojamientosV, "Debes iniciar sesion");
-                }
+                
             }
         }
     }
