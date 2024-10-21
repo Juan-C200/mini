@@ -4,6 +4,7 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -37,14 +38,14 @@ public class MetodoDePagoV extends JFrame{
         setContentPane(new JLabel(fondo));
         
         contenedor = getContentPane();
-        miflow = new FlowLayout(FlowLayout.CENTER);
-        contenedor.setLayout(miflow);
+
+        contenedor.setLayout(new BorderLayout());
         
         panel = new JPanel();
         migrid = new GridLayout(2,2,4,8);
         panel.setLayout(migrid);
         
-        elige = new JLabel("Elige medio de pago");
+        elige = new JLabel("Elige metodo de pago");
         
         cancelar = new JButton("Cancelar");
         continuar = new JButton("Continuar");
@@ -54,7 +55,7 @@ public class MetodoDePagoV extends JFrame{
         panel.add(cancelar);
         panel.add(continuar);
         
-        contenedor.add(panel);
+        contenedor.add(panel, BorderLayout.CENTER);
         
     } 
             

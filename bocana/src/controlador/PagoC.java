@@ -89,7 +89,7 @@ public class PagoC implements ActionListener{
         this.pV.listaTarjetas = new JComboBox(tarjetas);
         this.pV.panelCentro.add( this.pV.listaTarjetas);
         
-        this.pV.listaTarjetas.setSelectedItem(tarjetas.length);
+        this.pV.listaTarjetas.setSelectedItem(tarjetas.length-1);
          if (dao.buscarOferta(usuario.getIdUsuario())!=null){
              if(fecha_inicio.after(fechaiO) && fecha_fin.before(fechafO)){
                  this.valorFinal = monto - (monto * (descuento/100));

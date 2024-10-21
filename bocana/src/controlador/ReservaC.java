@@ -30,6 +30,7 @@ public class ReservaC implements ActionListener{
     Usuario usuario = new Usuario();
     Habitacion habitacion = new Habitacion();
     int id = dao.ultimoId()+1;
+    Date fechaActual = new Date();
     
     public ReservaC(ReservaV rv, Usuario u, Habitacion h){
         this.vista = rv;
@@ -69,17 +70,19 @@ public class ReservaC implements ActionListener{
             ResenaV rv = new ResenaV();
             ResenaC rc = new ResenaC(rv, usuario, habitacion);
             vista.setVisible(false);
+
+
         }
         
     }
     
     public void setAdd(){
        int r=1;
-       Date fechaActual = new Date();
+       
        int resultado=0;
        Date fechaI = vista.fechaInicio.getDate();
        Date fechaF = vista.fechaFin.getDate();
-       String estado = "Confirmado";
+       String estado = "Falta pago";
        
        
        
