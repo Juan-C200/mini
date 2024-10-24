@@ -28,7 +28,7 @@ public class ReservaDao {
         String sql = "SELECT r.idReserva, r.fechaInicio, r.fechaFin, r.estado, r.idUsuario, r.idHabitacion, "
                 + "u.documento, u.nombre1, u.nombre2, u.apellido1 , u.apellido2, u.correo, u.telefono, u.direccion, u.contrasena, u.idRol, "
                 + "h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion , h.idHotel, "
-                + "ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones FROM reservas r "
+                + "ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones FROM reservas r  "
                 + "JOIN usuarios u ON u.idUsuario = r.idUsuario "
                 + "JOIN habitaciones h ON h.idHabitacion = r.idHabitacion "
                 + "JOIN hoteles ho ON ho.idHotel = h.idHotel "
@@ -128,114 +128,126 @@ public class ReservaDao {
         return datosReserva;
     }
     
-    public List listarPorHotel(int idHotel) {
-        ArrayList<Reserva> datosReserva = new ArrayList<>();
-        String sql = "SELECT r.idReserva, r.fechaInicio, r.fechaFin, r.estado, r.idUsuario, r.idHabitacion, "
-            + "u.documento, u.nombre1, u.nombre2, u.apellido1, u.apellido2, u.correo, u.telefono, u.direccion, u.contrasena, u.idRol, "
-            + "h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion, h.idHotel, "
-            + "ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones"
-            + "FROM reservas r "
-            + "JOIN usuarios u ON u.idUsuario = r.idUsuario "
-            + "JOIN habitaciones h ON h.idHabitacion = r.idHabitacion "
-            + "JOIN hoteles ho ON ho.idHotel = h.idHotel "
-            + "JOIN tipos_habitaciones tp ON tp.idTipoHabitacion = h.idTipoHabitacion "
-            + "WHERE h.idHotel = "+idHotel;
+    public List<Reserva> listarPorHotel(int idHotel) {
+    ArrayList<Reserva> datosReserva = new ArrayList<>();
+    String sql = "SELECT r.idReserva, r.fechaInicio, r.fechaFin, r.estado, r.idUsuario, r.idHabitacion, "
+               + "u.documento, u.nombre1, u.nombre2, u.apellido1, u.apellido2, u.correo, u.telefono, u.direccion, u.contrasena, u.idRol, "
+               + "h.nombreHabitacion, h.estado, h.tarifa, h.descripcionBreve, h.descripcionDetallada, h.idTipoHabitacion, tp.descripcion, h.idHotel, "
+               + "ho.nit, ho.nombreHotel, ho.direccion, ho.numeroHabitaciones "
+               + "FROM reservas r "
+               + "JOIN usuarios u ON u.idUsuario = r.idUsuario "
+               + "JOIN habitaciones h ON h.idHabitacion = r.idHabitacion "
+               + "JOIN hoteles ho ON ho.idHotel = h.idHotel "
+               + "JOIN tipos_habitaciones tp ON tp.idTipoHabitacion = h.idTipoHabitacion "
+               + "WHERE h.idHotel = ?";  // Usar un parámetro en lugar de concatenación
 
-        try {
-            con = conectar.getConnection();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        con = conectar.getConnection();  // Establecer conexión
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, idHotel);  // Establecer el parámetro idHotel en la consulta
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Reserva r = new Reserva();
+            Habitacion h = new Habitacion();
+            Hotel ho = new Hotel();
+            Usuario u = new Usuario();
             
-            while (rs.next()) {
-                Reserva r = new Reserva();
-                Habitacion h = new Habitacion();
-                Hotel ho = new Hotel();
-                Usuario u = new Usuario();
-                r.setIdReserva(rs.getInt(1));
-                r.setFechaInicio(rs.getDate(2));
-                r.setFechaFin(rs.getDate(3));
-                r.setEstado(rs.getString(4));
-                
-                
-                
-                u.setIdUsuario(rs.getInt(5));
-                h.setIdHabitacion(rs.getInt(6));
-                u.setDocumento(rs.getInt(7));
-                u.setNombre1(rs.getString(8));
-                u.setNombre2(rs.getString(9));
-                u.setApellido1(rs.getString(10));
-                u.setApellido2(rs.getString(11));
-                u.setCorreo(rs.getString(12));
-                u.setTelefono(rs.getString(13));
-                u.setDireccion(rs.getString(14));
-                u.setContrasena(rs.getString(15));
-                u.setIdRol(rs.getInt(16));
-                
-                r.setUsuario(u);
-                
-                
-                h.setNombreHabitacion(rs.getString(17));
-                h.setEstado(rs.getString(18));
-                h.setTarifa(rs.getDouble(19));
-                h.setDescripcionBreve(rs.getString(20));
-                h.setDescripcionDetallada(rs.getString(21));
-                
-                TipoHabitacion tp = new TipoHabitacion();
-                tp.setIdTipoHabitacion(rs.getInt(22));
-                tp.setDescripcion(rs.getString(23));
-                
-                h.setTipoHabitacion(tp);
-                
-                ho.setIdHotel(rs.getInt(24));
-                ho.setNit(rs.getInt(25));
-                ho.setNombreHotel(rs.getString(26));
-                ho.setDireccion(rs.getString(27));
-                ho.setNumeroHabitaciones(rs.getInt(28));
+            // Asignación de valores a la reserva
+            r.setIdReserva(rs.getInt(1));
+            r.setFechaInicio(rs.getDate(2));
+            r.setFechaFin(rs.getDate(3));
+            r.setEstado(rs.getString(4));
 
-                
-                ArrayList<TipoServicio> servicios = new ArrayList<TipoServicio>();
-                
-                String sqlS = "SELECT ts.idTipoServicio, ts.descripcion FROM tipos_servicios ts " +
-                              "JOIN hoteles_tipos_servicios hts ON ts.idTipoServicio = hts.idTipoServicio " +
-                              "WHERE hts.idHotel = " + ho.getIdHotel();
-                
-                PreparedStatement psS = con.prepareStatement(sqlS);
-                ResultSet rsS = psS.executeQuery();
+            // Asignación de valores al usuario
+            u.setIdUsuario(rs.getInt(5));
+            h.setIdHabitacion(rs.getInt(6));
+            u.setDocumento(rs.getInt(7));
+            u.setNombre1(rs.getString(8));
+            u.setNombre2(rs.getString(9));
+            u.setApellido1(rs.getString(10));
+            u.setApellido2(rs.getString(11));
+            u.setCorreo(rs.getString(12));
+            u.setTelefono(rs.getString(13));
+            u.setDireccion(rs.getString(14));
+            u.setContrasena(rs.getString(15));
+            u.setIdRol(rs.getInt(16));
 
-                while (rsS.next()) {
-                    TipoServicio tps = new TipoServicio();
-                    tps.setIdTipoServicio(rsS.getInt(1));
-                    tps.setDescripcion(rsS.getString(2));
-                    servicios.add(tps);
-                }
-                
-                ho.setServicios(servicios);
-                
-                
-                h.setHotel(ho);
-                
-                
-                r.setHabitacion(h);
-                
+            r.setUsuario(u);  // Relación reserva-usuario
 
-                datosReserva.add(r);
-            }
+            // Asignación de valores a la habitación
+            h.setNombreHabitacion(rs.getString(17));
+            h.setEstado(rs.getString(18));
+            h.setTarifa(rs.getDouble(19));
+            h.setDescripcionBreve(rs.getString(20));
+            h.setDescripcionDetallada(rs.getString(21));
+
+            // Tipo de habitación
+            TipoHabitacion tp = new TipoHabitacion();
+            tp.setIdTipoHabitacion(rs.getInt(22));
+            tp.setDescripcion(rs.getString(23));
+            h.setTipoHabitacion(tp);
+
+            // Asignación de valores al hotel
+            ho.setIdHotel(rs.getInt(24));
+            ho.setNit(rs.getInt(25));
+            ho.setNombreHotel(rs.getString(26));
+            ho.setDireccion(rs.getString(27));
+            ho.setNumeroHabitaciones(rs.getInt(28));
+
+            // Cargar servicios del hotel
+            ArrayList<TipoServicio> servicios = cargarServiciosHotel(con, ho.getIdHotel());
+            ho.setServicios(servicios);
+
+            h.setHotel(ho);  // Relación habitación-hotel
+            r.setHabitacion(h);  // Relación reserva-habitación
+
+            datosReserva.add(r);  // Añadir la reserva a la lista
         }
-        catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, e.toString());
+    } finally {
+        // Cerrar los recursos de manera segura
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (con != null) con.close();
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, sqle.toString());
         }
-        finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            }
-            catch (SQLException sqle) {
-                JOptionPane.showMessageDialog(null, sqle.toString());
-            }
-        }
-        return datosReserva;
     }
+    return datosReserva;
+}
+
+// Método separado para cargar los servicios del hotel
+private ArrayList<TipoServicio> cargarServiciosHotel(Connection con, int idHotel) throws SQLException {
+    ArrayList<TipoServicio> servicios = new ArrayList<>();
+    String sqlS = "SELECT ts.idTipoServicio, ts.descripcion FROM tipos_servicios ts "
+                + "JOIN hoteles_tipos_servicios hts ON ts.idTipoServicio = hts.idTipoServicio "
+                + "WHERE hts.idHotel = ?";  // Usar parámetro
+
+    PreparedStatement psS = con.prepareStatement(sqlS);
+    psS.setInt(1, idHotel);  // Establecer idHotel
+    ResultSet rsS = psS.executeQuery();
+
+    while (rsS.next()) {
+        TipoServicio tps = new TipoServicio();
+        tps.setIdTipoServicio(rsS.getInt(1));
+        tps.setDescripcion(rsS.getString(2));
+        servicios.add(tps);
+    }
+
+    rsS.close();
+    psS.close();
+
+    return servicios;
+}
+
     
     
     public int setAgregar (Reserva r){

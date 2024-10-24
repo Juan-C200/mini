@@ -62,6 +62,9 @@ public class RegistrarHabitacionV extends JFrame{
         
         super("Registrar Habitacion");
         
+        ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
+        
         lista = new JComboBox(tiposHabitaciones);
         contenedor = getContentPane();
         miflow = new FlowLayout();

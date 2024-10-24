@@ -18,17 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import modelo.Habitacion;
 import modelo.Hotel;
 import modelo.HotelDao;
-import modelo.Resena;
 import modelo.Reserva;
 import modelo.ReservaDao;
 import modelo.Usuario;
-import vista.IniciarSesionV;
-import vista.ResenaV;
 import vista.UsuarioV;
 import vista.VerReservasV;
 

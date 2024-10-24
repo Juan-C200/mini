@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import modelo.Usuario;
 import modelo.UsuarioDao;
 import vista.AlojamientosV;
-import vista.HotelV;
 import vista.IniciarSesionV;
 import vista.RegistrarV;
 

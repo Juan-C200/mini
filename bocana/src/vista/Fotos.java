@@ -11,6 +11,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,6 +38,8 @@ public class Fotos extends JFrame{
     public Fotos(){
         super("Hoteles Bocana");
         
+        ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
         contenedor = getContentPane();
         miflow = new FlowLayout(FlowLayout.CENTER);
         contenedor.setLayout(miflow);

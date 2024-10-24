@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
 import modelo.UsuarioDao;
-import vista.HotelV;
 import vista.IniciarSesionV;
 import vista.RegistrarV;
 

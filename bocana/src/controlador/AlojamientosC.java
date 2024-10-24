@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,8 +25,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import modelo.Habitacion;
 import modelo.HabitacionDao;
-import modelo.Hotel;
-import modelo.HotelDao;
 import modelo.ResenaDao;
 import modelo.Usuario;
 import vista.AlojamientosV;
@@ -81,7 +78,10 @@ public class AlojamientosC implements ActionListener{
             
             
             JLabel foto = new JLabel();
-            foto = fotos.get(0);
+            if(fotos.size()>0){
+                foto = fotos.get(0);
+            }
+            
             
 
             this.alojamientosV.panelImg = new JPanel();

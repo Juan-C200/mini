@@ -44,6 +44,9 @@ public class VerReservasV extends JFrame{
     public VerReservasV() {
        super("Reservas");
         
+       ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
+        
         contenedor = getContentPane();
         contenedor.setLayout(new BorderLayout());
 

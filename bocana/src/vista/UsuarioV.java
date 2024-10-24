@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +43,8 @@ public class UsuarioV extends JFrame{
         
         super("Usuario");
         
+        ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
         contenedor = getContentPane();
         miflow = new FlowLayout();
         contenedor.setLayout(miflow);

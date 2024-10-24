@@ -63,6 +63,9 @@ public class EditarAlojamientoV extends JFrame{
         
         super("Editar Alojamiento");
         
+        ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
+        
         lista = new JComboBox(tiposHabitaciones);
         listaEstado = new JComboBox(estado);
         contenedor = getContentPane();

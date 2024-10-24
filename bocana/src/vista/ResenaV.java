@@ -54,6 +54,9 @@ public class ResenaV extends JFrame{
         
         super("Alojamiento");
         
+        ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
+        
         contenedor = getContentPane();
         miflow = new FlowLayout();
         contenedor.setLayout(miflow);

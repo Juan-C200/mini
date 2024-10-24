@@ -63,6 +63,8 @@ public class AlojamientosV extends JFrame{
     public AlojamientosV() {
        super("Alojamientos");
         
+       ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
         contenedor = getContentPane();
         
          contenedor.setLayout(new BorderLayout());

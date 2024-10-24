@@ -62,7 +62,8 @@ public class RegistrarHotelV extends JFrame{
     public RegistrarHotelV(){
         
         super("Registrar Hotel");
-        
+        ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
         
         contenedor = getContentPane();
         miflow = new FlowLayout();

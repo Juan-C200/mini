@@ -13,10 +13,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import modelo.Habitacion;
+import modelo.Reserva;
 import modelo.Tarjeta;
 import modelo.TarjetaDao;
 import modelo.Usuario;
-import vista.MetodoDePagoV;
 import vista.PagoV;
 import vista.TarjetaV;
 
@@ -33,10 +33,10 @@ public class TarjetaC implements ActionListener {
     Habitacion habitacion = new Habitacion();
     int id = tarDao.ultimoId() + 1;
     Date fecha1, fecha2;
-
+Reserva reserva = new Reserva();
     boolean result;
 
-    public TarjetaC(TarjetaV tarV, Usuario usuario, Habitacion habitacion, Date fecha1, Date fecha2) {
+    public TarjetaC(TarjetaV tarV, Usuario usuario, Habitacion habitacion, Date fecha1, Date fecha2, Reserva reserva) {
         this.tarjetaV = tarV;
         this.usuario = usuario;
         this.habitacion = habitacion;
@@ -77,7 +77,7 @@ public class TarjetaC implements ActionListener {
                         setAdd();
                         System.out.print("Funciona loco");
                         PagoV pv = new PagoV();
-                        PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta", fecha1, fecha2);
+                        PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta", fecha1, fecha2,reserva);
 
                     }
                 }
@@ -89,7 +89,7 @@ public class TarjetaC implements ActionListener {
 
         if (e.getSource() == tarjetaV.cancelar) {
             PagoV pv = new PagoV();
-            PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta", fecha1,fecha2);
+            PagoC pc = new PagoC(pv, usuario, habitacion, "Tarjeta", fecha1,fecha2,reserva);
         }
     }
 

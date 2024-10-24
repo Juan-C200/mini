@@ -13,13 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import modelo.Habitacion;
 import modelo.HabitacionDao;
-import modelo.Hotel;
 import modelo.TipoHabitacion;
 import modelo.TipoHabitacionDao;
 import modelo.Usuario;
 import vista.EditarAlojamientoV;
 import vista.FotosV;
-import vista.RegistrarHabitacionV;
+import vista.VerAlojamientosV;
 
 /**
  *
@@ -54,9 +53,16 @@ public class EditarAlojamientoC implements ActionListener{
         this.registrarHabitacionV.imagenes = habitacion.getImagenes();
         this.registrarHabitacionV.fotos = habitacion.getFotos();
         
-//        if(this.habitacion.getFotos().size()==6){
-//            registrarHabitacionV.bfotos.setEnabled(false);
-//        }
+
+        this.fotos=habitacion.getFotos();
+        this.imagenes=habitacion.getImagenes();
+        this.registrarHabitacionV.migrid = new GridLayout(fotos.size(),4,5,5);
+                this.registrarHabitacionV.panelFotos.setLayout(this.registrarHabitacionV.migrid);
+                for(int i=0;i<fotos.size();i++){
+                    this.registrarHabitacionV.panelFotos.add(fotos.get(i));
+                }
+                this.registrarHabitacionV.panelFotos.revalidate();
+                this.registrarHabitacionV.panelFotos.repaint();
         this.registrarHabitacionV.tdescripcionBreve.setText(habitacion.getDescripcionBreve());
         this.registrarHabitacionV.tdescripcionDetallada.setText(habitacion.getDescripcionDetallada());
         this.registrarHabitacionV.tnombreHabitacion.setText(habitacion.getNombreHabitacion());
@@ -85,6 +91,12 @@ public class EditarAlojamientoC implements ActionListener{
         if(e.getSource()== registrarHabitacionV.bfotos){
             
             fotosC = new FotosC(fotosV, fotos, imagenes, usuario);
+        }
+        
+        if(e.getSource()== registrarHabitacionV.bcancelar){
+            
+            VerAlojamientosV  ver= new VerAlojamientosV();
+            VerAlojamientosC verC = new VerAlojamientosC(ver,usuario);
         }
         
         if(e.getSource() == fotosV.bcontinuar){

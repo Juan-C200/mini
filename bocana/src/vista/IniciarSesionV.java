@@ -53,6 +53,7 @@ extends JFrame {
 
     public IniciarSesionV() {
         super("iniciar Sesion");
+        
          ImageIcon fondo = new ImageIcon("fondo.jpg");
           setContentPane(new JLabel(fondo));
         

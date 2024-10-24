@@ -50,6 +50,7 @@ public class TarjetaV extends JFrame{
     public TarjetaV() {
          super("Agregar tarjeta");
          
+         
           ImageIcon fondo = new ImageIcon("fondo.jpg");
           setContentPane(new JLabel(fondo));
 

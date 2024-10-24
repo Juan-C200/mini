@@ -240,6 +240,38 @@ public class HabitacionDao {
         return fotos;
     }
     
+    public List listarImagenesByte(int idHabitacion) {
+        ArrayList<byte[]> imagenes = new ArrayList<byte[]>();
+        String sql = "SELECT imagen FROM imagenes WHERE idHabitacion = "+idHabitacion;
+        try {
+            con = conectar.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                byte[] imagenBytes = rs.getBytes("imagen");
+                         
+                
+                imagenes.add(imagenBytes);
+            }
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+        finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            }
+            catch (SQLException sqle) {
+                JOptionPane.showMessageDialog(null, sqle.toString());
+            }
+        }
+        return imagenes;
+    }
+    
+    
     public int setAgregar (Habitacion h){
        String sql = "INSERT INTO habitaciones VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?)";
        
@@ -308,7 +340,7 @@ public class HabitacionDao {
     
     
     public int setActualizar(Habitacion h){
-        String sql="UPDATE habitaciones SET nombreHabitacion=?, estado=?, tarifa=?, descripcionBreve=?, descripcionDetallada=?, idTipoHabitacion, idHotel=? WHERE idHabitacion=?";
+        String sql="UPDATE habitaciones SET nombreHabitacion=?, estado=?, tarifa=?, descripcionBreve=?, descripcionDetallada=?, idTipoHabitacion=?, idHotel=? WHERE idHabitacion=?";
         
         try{
             con=conectar.getConnection();

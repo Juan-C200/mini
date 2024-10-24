@@ -16,6 +16,8 @@ import modelo.Habitacion;
 import modelo.Oferta;
 import modelo.Pago;
 import modelo.PagoDao;
+import modelo.Reserva;
+import modelo.ReservaDao;
 import modelo.Usuario;
 import vista.AlojamientosV;
 import vista.PagoV;
@@ -37,13 +39,15 @@ public class PagoC implements ActionListener{
     private Oferta of = new Oferta();
     public ArrayList <String> lisTarjetas;
     public String tarjetas[], metodo;
-
+     Reserva reserva= new Reserva();
+ReservaDao reservaDao= new ReservaDao();
     String temp;
     private Date fechaI, fechaF, fechaiO, fechafO, fecha = new Date();
     int id =dao.ultimoId()+1, id_usu;
     double monto, descuento, valorFinal;
-    public PagoC(PagoV p, Usuario u, Habitacion h, String s, Date fecha_inicio, Date fecha_fin){
+    public PagoC(PagoV p, Usuario u, Habitacion h, String s, Date fecha_inicio, Date fecha_fin, Reserva reserva){
         this.usuario = u;
+        this.reserva=reserva;
         this.metodo = s;
         this.habitacion = h;
         this.pV = p;
@@ -125,6 +129,7 @@ public class PagoC implements ActionListener{
        
         if(e.getSource()==pV.continuar){
             setAdd();
+            
             JOptionPane.showMessageDialog(pV, "Si deseas ver los datos de esta reserva, ingresa a tu perfil en la opcion de <Ver reservas>");
             AlojamientosV alo = new AlojamientosV();
             AlojamientosC aloc = new AlojamientosC(alo, usuario);
@@ -141,7 +146,7 @@ public class PagoC implements ActionListener{
         
         if (e.getSource()==pV.agregarTarjeta){
             TarjetaV tv = new TarjetaV();
-            TarjetaC tc = new TarjetaC(tv, usuario, habitacion, fechaI, fechaF);
+            TarjetaC tc = new TarjetaC(tv, usuario, habitacion, fechaI, fechaF,reserva);
             pV.setVisible(false);
         }
     }
@@ -167,8 +172,11 @@ public class PagoC implements ActionListener{
         
         resultado = dao.setAgregar(p);
         
+        
          if (resultado == 1) {
-            JOptionPane.showMessageDialog(pV, "Tarjeta guardada");
+              reservaDao.setAgregar(reserva);
+            JOptionPane.showMessageDialog(pV, "Se realizo el pago");
+           
         } else {
             JOptionPane.showMessageDialog(pV, "Error de insercion" + JOptionPane.ERROR_MESSAGE);
         }

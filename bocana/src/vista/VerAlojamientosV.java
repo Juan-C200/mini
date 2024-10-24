@@ -52,7 +52,7 @@ public class VerAlojamientosV extends JFrame{
     public JLabel lcalificacion;
 
     
-    public JButton bvermas;
+    public JButton beditar;
     
     public FlowLayout miflow;
     public GridBagLayout gridbag;
@@ -61,6 +61,9 @@ public class VerAlojamientosV extends JFrame{
 
     public VerAlojamientosV() {
        super("Ver Alojamientos");
+       
+       ImageIcon fondo = new ImageIcon("fondo.jpg");
+        setContentPane(new JLabel(fondo));
         
         contenedor = getContentPane();
         

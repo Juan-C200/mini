@@ -6,8 +6,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import static java.time.LocalDateTime.now;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelo.Habitacion;
@@ -15,7 +13,6 @@ import modelo.Reserva;
 import modelo.ReservaDao;
 import modelo.Usuario;
 import vista.MetodoDePagoV;
-import vista.PagoV;
 import vista.ResenaV;
 import vista.ReservaV;
 
@@ -34,7 +31,6 @@ public class ReservaC implements ActionListener{
     
     public ReservaC(ReservaV rv, Usuario u, Habitacion h){
         this.vista = rv;
-        
         this.vista.aceptar.addActionListener(this);
         this.vista.cancelar.addActionListener(this);
         this.vista.continuar.addActionListener(this);
@@ -47,6 +43,7 @@ public class ReservaC implements ActionListener{
         this.vista.setExtendedState(6);
         this.vista.setVisible(true);
         this.vista.setDefaultCloseOperation(3);
+        
     }
 
     @Override
@@ -55,9 +52,12 @@ public class ReservaC implements ActionListener{
             if(!vista.fechaInicio.getDate().toString().isBlank() 
                     || !vista.fechaInicio.getDate().toString().isBlank()){
                  if(vista.aceptar.isSelected()){
-                MetodoDePagoV mp = new MetodoDePagoV();
-                MetodoDePagoC mpc = new MetodoDePagoC(mp, usuario, habitacion, vista.fechaInicio.getDate(), vista.fechaFin.getDate());
+                     if (validarFechas()==1){
+                         MetodoDePagoV mp = new MetodoDePagoV();
+                MetodoDePagoC mpc = new MetodoDePagoC(mp, usuario, habitacion, vista.fechaInicio.getDate(), vista.fechaFin.getDate(),reserva);
                 vista.setVisible(false);
+                     }
+                
                 } else {
                      JOptionPane.showMessageDialog(vista, "Por favor acepta nuestras politicas");
                  }
@@ -82,25 +82,9 @@ public class ReservaC implements ActionListener{
        int resultado=0;
        Date fechaI = vista.fechaInicio.getDate();
        Date fechaF = vista.fechaFin.getDate();
-       String estado = "Falta pago";
+       String estado = "Confirmada";
        
        
-       
-       
-       if (vista.fechaInicio.getDate() == null || vista.fechaFin.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione ambas fechas.");
-            r=0;
-        }
-       
-       if (vista.fechaInicio.getDate().after(vista.fechaFin.getDate())) {
-            JOptionPane.showMessageDialog(null, "La Fecha de inicio no puede ser mayor que la Fecha de fin.");
-            r=0;
-        }
-       
-       if (vista.fechaInicio.getDate().before(fechaActual) || vista.fechaFin.getDate().before(fechaActual)) {
-            JOptionPane.showMessageDialog(null, "Las fechas de inicio y fin deben ser mayores o iguales a la fecha actual.");
-            r = 0;
-        }
        
        reserva.setIdReserva(id);
        reserva.setFechaInicio(fechaI);
@@ -111,16 +95,48 @@ public class ReservaC implements ActionListener{
        
 
        
-       if (r == 1) {
-            resultado = dao.setAgregar(reserva);
-        }
+//       if (r == 1) {
+//            resultado = dao.setAgregar(reserva);
+//        }
+//
+//        if (resultado == 1) {
+//            JOptionPane.showMessageDialog(vista, "Reserva guardada");
+//        } else {
+//            JOptionPane.showMessageDialog(vista, "Error de insercion" + JOptionPane.ERROR_MESSAGE);
+//        }
+   }
+    
+    public int validarFechas() {
+    int r = 1;  // Inicializamos en 1, que sería el código de éxito si las fechas son válidas
+    Date fecha1 = vista.fechaInicio.getDate();  // Obtenemos fecha de inicio
+    Date fecha2 =  vista.fechaFin.getDate();     // Obtenemos fecha de fin
+    Date fechaActual = new Date();           // Fecha actual del sistema
 
-        if (resultado == 1) {
-            JOptionPane.showMessageDialog(vista, "Reserva guardada");
-        } else {
-            JOptionPane.showMessageDialog(vista, "Error de insercion" + JOptionPane.ERROR_MESSAGE);
-        }
+    // Validamos si las fechas son null antes de comparar
+    if (fecha1 == null || fecha2 == null) {
+        JOptionPane.showMessageDialog(vista, "Por favor, seleccione ambas fechas.");
+        return 0;  // Retornamos 0 si alguna de las fechas es nula
     }
-    
-    
+
+    // Verificar si la fecha de inicio es después de la fecha de fin
+    if (fecha1.after(fecha2)) {
+        JOptionPane.showMessageDialog(vista, "La fecha de fin no puede ser menor a la fecha de inicio.");
+        return 0;  // Retornamos 0 porque las fechas no son válidas
+    }
+
+    // Verificar si las fechas son iguales
+    if (fecha1==fecha2) {
+        JOptionPane.showMessageDialog(vista, "Las fechas no pueden ser iguales.");
+        return 0;  // Retornamos 0 porque las fechas no pueden ser iguales
+    }
+
+    // Verificar si ambas fechas están en el pasado con respecto a la fecha actual
+    if (fecha1.before(fechaActual) && fecha2.before(fechaActual)) {
+        JOptionPane.showMessageDialog(vista, "Las fechas seleccionadas no pueden ser anteriores a la fecha actual.");
+        return 0;  // Retornamos 0 si ambas fechas son anteriores a la actual
+    }
+
+    return r;  // Si pasa todas las validaciones, retornamos 1 (fechas válidas)
+}
+
 }

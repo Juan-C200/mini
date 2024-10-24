@@ -16,11 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
@@ -30,10 +28,7 @@ import modelo.Hotel;
 import modelo.HotelDao;
 import modelo.ResenaDao;
 import modelo.Usuario;
-import vista.AlojamientosV;
 import vista.EditarAlojamientoV;
-import vista.IniciarSesionV;
-import vista.ResenaV;
 import vista.UsuarioV;
 import vista.VerAlojamientosV;
 
@@ -174,14 +169,14 @@ public class VerAlojamientosC implements ActionListener{
             this.alojamientosV.panelBoton.setPreferredSize(new Dimension(300,40));
             
 
-            this.alojamientosV.bvermas = new JButton("Editar");
-            this.alojamientosV.bvermas.setFont(new Font("Times New Roman", 0, 20));
-            this.alojamientosV.bvermas.setBackground(Color.white);
-            this.alojamientosV.bvermas.setForeground(Color.BLACK);
-            this.alojamientosV.bvermas.addActionListener(this);
-            this.alojamientosV.bvermas.putClientProperty("valor", datosHabitaciones.get(i).getIdHabitacion());
+            this.alojamientosV.beditar = new JButton("Editar");
+            this.alojamientosV.beditar.setFont(new Font("Times New Roman", 0, 20));
+            this.alojamientosV.beditar.setBackground(Color.white);
+            this.alojamientosV.beditar.setForeground(Color.BLACK);
+            this.alojamientosV.beditar.addActionListener(this);
+            this.alojamientosV.beditar.putClientProperty("valor", datosHabitaciones.get(i).getIdHabitacion());
             
-            this.alojamientosV.panelBoton.add(this.alojamientosV.bvermas);
+            this.alojamientosV.panelBoton.add(this.alojamientosV.beditar);
 
             this.alojamientosV.gbc.gridx = 3;
 
@@ -247,13 +242,16 @@ public class VerAlojamientosC implements ActionListener{
                 
                     Integer idHabitacion = (Integer) boton.getClientProperty("valor");
                     Habitacion habitacion = new Habitacion();
-
+                   
                     for(int i = 0; i<datosHabitaciones.size();i++){
                         if(datosHabitaciones.get(i).getIdHabitacion() == idHabitacion){
                             habitacion=datosHabitaciones.get(i);
                         }
                     }
-System.out.println("size "+habitacion.getIdHabitacion());
+
+habitacion.setFotos(habitacionDao.listarImagenes(habitacion.getIdHabitacion()));
+habitacion.setImagenes(habitacionDao.listarImagenesByte(habitacion.getIdHabitacion()));
+
                     EditarAlojamientoV editarAlojamientoV = new EditarAlojamientoV();
                     EditarAlojamientoC editarAlojamientoC = new EditarAlojamientoC(editarAlojamientoV, usuario, habitacion);
                     alojamientosV.setVisible(false);

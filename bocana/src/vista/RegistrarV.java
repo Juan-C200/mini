@@ -66,6 +66,8 @@ public class RegistrarV extends JFrame{
     public RegistrarV(){
         
         super("Registrar");
+        
+        
          ImageIcon fondo = new ImageIcon("fondo.jpg");
           setContentPane(new JLabel(fondo));
         

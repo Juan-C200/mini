@@ -32,14 +32,15 @@ public class MetodoDePagoV extends JFrame{
     public MetodoDePagoV() {
         super("Metodo de pago");
         
+        
         lista = new JComboBox(medio);
         
         ImageIcon fondo = new ImageIcon("fondo.jpg");
         setContentPane(new JLabel(fondo));
         
         contenedor = getContentPane();
-
-        contenedor.setLayout(new BorderLayout());
+miflow = new FlowLayout(FlowLayout.CENTER);
+        contenedor.setLayout(miflow);
         
         panel = new JPanel();
         migrid = new GridLayout(2,2,4,8);
@@ -55,7 +56,7 @@ public class MetodoDePagoV extends JFrame{
         panel.add(cancelar);
         panel.add(continuar);
         
-        contenedor.add(panel, BorderLayout.CENTER);
+        contenedor.add(panel);
         
     } 
             

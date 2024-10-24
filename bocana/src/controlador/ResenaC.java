@@ -23,13 +23,11 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import modelo.Habitacion;
 import modelo.HabitacionDao;
-import modelo.Hotel;
 import modelo.Resena;
 import modelo.ResenaDao;
 import modelo.TipoServicio;
 import modelo.Usuario;
 import vista.AlojamientosV;
-import vista.MetodoDePagoV;
 import vista.ResenaV;
 import vista.ReservaV;
 
